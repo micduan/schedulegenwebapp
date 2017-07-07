@@ -5,6 +5,7 @@
         <div class="login-screen">
             <div class="page-title">
                 <h1>ScheduleGenerator v1.0</h1>
+                <h2>Your API token is: {{ token }}</h2>
             </div>
 
             <div class="text-form">
@@ -16,207 +17,208 @@
                 <br>
                 <br>
                 <br>
+                <form method="POST" action="/schedule">
+                    <div class="input-token">
+                        <input list="course" class="login-field" value="" placeholder="Course 1" name="course1">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-                <div class="input-token">
-				    <input list="course" class="login-field" value="" placeholder="Course 1" name="username">
-				    <label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
+                    <div class="input-token">
+                        <input list="course" class="login-field" value="" placeholder="Course 2" name="course2">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-                <div class="input-token">
-				    <input list="course" class="login-field" value="" placeholder="Course 2" name="username">
-				    <label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
+                    <div class="input-token">
+                        <input list="course" class="login-field" value="" placeholder="Course 3" name="course3">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-                <div class="input-token">
-				    <input list="course" class="login-field" value="" placeholder="Course 3" name="username">
-				    <label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
+                    <div class="input-token">
+                        <input list="course" class="login-field" value="" placeholder="Course 4" name="course4">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-                <div class="input-token">
-				    <input list="course" class="login-field" value="" placeholder="Course 4" name="username">
-				    <label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
+                    <div class="input-token">
+                        <input list="course" class="login-field" value="" placeholder="Course 5" name="course5">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-                <div class="input-token">
-				    <input list="course" class="login-field" value="" placeholder="Course 5" name="username">
-				    <label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
+                    <div class="input-token">
+                        <input list="course" class="login-field" value="" placeholder="Course 6" name="course6">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-                <div class="input-token">
-				    <input list="course" class="login-field" value="" placeholder="Course 6" name="username">
-				    <label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
+                    <div class="input-token">
+                        <input list="course" class="login-field" value="" placeholder="Course 7" name="course7">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-                <div class="input-token">
-				    <input list="course" class="login-field" value="" placeholder="Course 7" name="username">
-				    <label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
+                    <input type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
 
-                <input type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
+                    <datalist id="course">
+                        <option value="AB"></option>
+                        <option value="ACC"></option>
+                        <option value="ACINTY"></option>
+                        <option value="ACTSC"></option>
+                        <option value="AFM"></option>
+                        <option value="AHS"></option>
+                        <option value="AMATH"></option>
+                        <option value="ANTH"></option>
+                        <option value="APPLS"></option>
+                        <option value="ARBUS"></option>
+                        <option value="ARCH"></option>
+                        <option value="ARCHL"></option>
+                        <option value="ARTS"></option>
+                        <option value="ASTRN"></option>
+                        <option value="AVIA"></option>
+                        <option value="BASE"></option>
+                        <option value="BE"></option>
+                        <option value="BET"></option>
+                        <option value="BIOL"></option>
+                        <option value="BME"></option>
+                        <option value="BUS"></option>
+                        <option value="CHE"></option>
+                        <option value="CHEM"></option>
+                        <option value="CHINA"></option>
+                        <option value="CIVE"></option>
+                        <option value="CLAS"></option>
+                        <option value="CM"></option>
+                        <option value="CMW"></option>
+                        <option value="CO"></option>
+                        <option value="COGSCI"></option>
+                        <option value="COMM"></option>
+                        <option value="COMST"></option>
+                        <option value="COOP"></option>
+                        <option value="CRGC"></option>
+                        <option value="CROAT"></option>
+                        <option value="CS"></option>
+                        <option value="CT"></option>
+                        <option value="DAC"></option>
+                        <option value="DEI"></option>
+                        <option value="DRAMA"></option>
+                        <option value="DUTCH"></option>
+                        <option value="EARTH"></option>
+                        <option value="EASIA"></option>
+                        <option value="ECDEV"></option>
+                        <option value="ECE"></option>
+                        <option value="ECON"></option>
+                        <option value="EFAS"></option>
+                        <option value="ELPE"></option>
+                        <option value="EMLS"></option>
+                        <option value="ENBUS"></option>
+                        <option value="ENGL"></option>
+                        <option value="ENTR"></option>
+                        <option value="ENVE"></option>
+                        <option value="ENVS"></option>
+                        <option value="ERS"></option>
+                        <option value="FILM"></option>
+                        <option value="FINE"></option>
+                        <option value="FR">FR</option>
+                        <option value="GBDA">GBDA</option>
+                        <option value="GEMCC">GEMCC</option>
+                        <option value="GENE">GENE</option>
+                        <option value="GEOE">GEOE</option>
+                        <option value="GEOG"></option>
+                        <option value="GER">GER</option>
+                        <option value="GERON">GERON</option>
+                        <option value="GGOV"></option>
+                        <option value="GLOBAL">GLOBAL</option>
+                        <option value="GRK">GRK</option>
+                        <option value="GS">GS</option>
+                        <option value="HIST">HIST</option>
+                        <option value="HLTH">HLTH</option>
+                        <option value="HRM">HRM</option>
+                        <option value="HUMN">HUMN</option>
+                        <option value="HUMSC">HUMSC</option>
+                        <option value="INDEV">INDEV</option>
+                        <option value="INTEG">INTEG</option>
+                        <option value="INTERN">INTERN</option>
+                        <option value="INTST">INTST</option>
+                        <option value="INTTS">INTTS</option>
+                        <option value="IS">IS</option>
+                        <option value="ITAL">ITAL</option>
+                        <option value="ITALST">ITALST</option>
+                        <option value="JAPAN">JAPAN</option>
+                        <option value="JS">JS</option>
+                        <option value="KIN">KIN</option>
+                        <option value="KOREA">KOREA</option>
+                        <option value="KPE">KPE</option>
+                        <option value="LANG">LANG</option>
+                        <option value="LAT">LAT</option>
+                        <option value="LED">LED</option>
+                        <option value="LS">LS</option>
+                        <option value="MATBUS">MATBUS</option>
+                        <option value="MATH">MATH</option>
+                        <option value="ME">ME</option>
+                        <option value="MEDVL">MEDVL</option>
+                        <option value="MISC">MISC</option>
+                        <option value="MNS">MNS</option>
+                        <option value="MSCI"></option>
+                        <option value="MTE">MTE</option>
+                        <option value="MTHEL">MTHEL</option>
+                        <option value="MUSIC">MUSIC</option>
+                        <option value="NANO">NANO</option>
+                        <option value="NATST">NATST</option>
+                        <option value="NE">NE</option>
+                        <option value="OPTOM">OPTOM</option>
+                        <option value="PACS">PACS</option>
+                        <option value="PD">PD</option>
+                        <option value="PDARCH">PDARCH</option>
+                        <option value="PDPHRM"></option>
+                        <option value="PHARM">PHARM</option>
+                        <option value="PHIL">PHIL</option>
+                        <option value="PHS">PHS</option>
+                        <option value="PHYS">PHYS</option>
+                        <option value="PLAN">PLAN</option>
+                        <option value="PLCG">PLCG</option>
+                        <option value="PMATH">PMATH</option>
+                        <option value="PORT">PORT</option>
+                        <option value="PS">PS</option>
+                        <option value="PSCI">PSCI</option>
+                        <option value="PSYCH">PSYCH</option>
+                        <option value="QIC">QIC</option>
+                        <option value="REC">REC</option>
+                        <option value="REES">REES</option>
+                        <option value="RELC">RELC</option>
+                        <option value="RS">RS</option>
+                        <option value="RSCH">RSCH</option>
+                        <option value="RUSS">RUSS</option>
+                        <option value="SCBUS">SCBUS</option>
+                        <option value="SCI">SCI</option>
+                        <option value="SDS">SDS</option>
+                        <option value="SE">SE</option>
+                        <option value="SEQ">SEQ</option>
+                        <option value="SI">SI</option>
+                        <option value="SMF">SMF</option>
+                        <option value="SOC">SOC</option>
+                        <option value="SOCE">SOCE</option>
+                        <option value="SOCIN">SOCIN</option>
+                        <option value="SOCWK">SOCWK</option>
+                        <option value="SPAN">SPAN</option>
+                        <option value="SPCOM">SPCOM</option>
+                        <option value="STAT">STAT</option>
+                        <option value="STV">STV</option>
+                        <option value="SUSM">SUSM</option>
+                        <option value="SVENT">SVENT</option>
+                        <option value="SWK">SWK</option>
+                        <option value="SWREN">SWREN</option>
+                        <option value="SYDE">SYDE</option>
+                        <option value="TAX">TAX</option>
+                        <option value="TN">TN</option>
+                        <option value="TOUR">TOUR</option>
+                        <option value="TPM">TPM</option>
+                        <option value="TS">TS</option>
+                        <option value="UN">UN</option>
+                        <option value="UNIV">UNIV</option>
+                        <option value="UU">UU</option>
+                        <option value="VCULT">VCULT</option>
+                        <option value="WATER">WATER</option>
+                        <option value="WHMIS">WHMIS</option>
+                        <option value="WKRPT">WKRPT</option>
+                        <option value="WS">WS</option>
 
-                <datalist id="course">
-                    <option value="AB"></option>
-                    <option value="ACC"></option>
-                    <option value="ACINTY"></option>
-                    <option value="ACTSC"></option>
-                    <option value="AFM"></option>
-                    <option value="AHS"></option>
-                    <option value="AMATH"></option>
-                    <option value="ANTH"></option>
-                    <option value="APPLS"></option>
-                    <option value="ARBUS"></option>
-                    <option value="ARCH"></option>
-                    <option value="ARCHL"></option>
-                    <option value="ARTS"></option>
-                    <option value="ASTRN"></option>
-                    <option value="AVIA"></option>
-                    <option value="BASE"></option>
-                    <option value="BE"></option>
-                    <option value="BET"></option>
-                    <option value="BIOL"></option>
-                    <option value="BME"></option>
-                    <option value="BUS"></option>
-                    <option value="CHE"></option>
-                    <option value="CHEM"></option>
-                    <option value="CHINA"></option>
-                    <option value="CIVE"></option>
-                    <option value="CLAS"></option>
-                    <option value="CM"></option>
-                    <option value="CMW"></option>
-                    <option value="CO"></option>
-                    <option value="COGSCI"></option>
-                    <option value="COMM"></option>
-                    <option value="COMST"></option>
-                    <option value="COOP"></option>
-                    <option value="CRGC"></option>
-                    <option value="CROAT"></option>
-                    <option value="CS"></option>
-                    <option value="CT"></option>
-                    <option value="DAC"></option>
-                    <option value="DEI"></option>
-                    <option value="DRAMA"></option>
-                    <option value="DUTCH"></option>
-                    <option value="EARTH"></option>
-                    <option value="EASIA"></option>
-                    <option value="ECDEV"></option>
-                    <option value="ECE"></option>
-                    <option value="ECON"></option>
-                    <option value="EFAS"></option>
-                    <option value="ELPE"></option>
-                    <option value="EMLS"></option>
-                    <option value="ENBUS"></option>
-                    <option value="ENGL"></option>
-                    <option value="ENTR"></option>
-                    <option value="ENVE"></option>
-                    <option value="ENVS"></option>
-                    <option value="ERS"></option>
-                    <option value="FILM"></option>
-                    <option value="FINE"></option>
-                    <option value="FR">FR</option>
-                    <option value="GBDA">GBDA</option>
-                    <option value="GEMCC">GEMCC</option>
-                    <option value="GENE">GENE</option>
-                    <option value="GEOE">GEOE</option>
-                    <option value="GEOG"></option>
-                    <option value="GER">GER</option>
-                    <option value="GERON">GERON</option>
-                    <option value="GGOV"></option>
-                    <option value="GLOBAL">GLOBAL</option>
-                    <option value="GRK">GRK</option>
-                    <option value="GS">GS</option>
-                    <option value="HIST">HIST</option>
-                    <option value="HLTH">HLTH</option>
-                    <option value="HRM">HRM</option>
-                    <option value="HUMN">HUMN</option>
-                    <option value="HUMSC">HUMSC</option>
-                    <option value="INDEV">INDEV</option>
-                    <option value="INTEG">INTEG</option>
-                    <option value="INTERN">INTERN</option>
-                    <option value="INTST">INTST</option>
-                    <option value="INTTS">INTTS</option>
-                    <option value="IS">IS</option>
-                    <option value="ITAL">ITAL</option>
-                    <option value="ITALST">ITALST</option>
-                    <option value="JAPAN">JAPAN</option>
-                    <option value="JS">JS</option>
-                    <option value="KIN">KIN</option>
-                    <option value="KOREA">KOREA</option>
-                    <option value="KPE">KPE</option>
-                    <option value="LANG">LANG</option>
-                    <option value="LAT">LAT</option>
-                    <option value="LED">LED</option>
-                    <option value="LS">LS</option>
-                    <option value="MATBUS">MATBUS</option>
-                    <option value="MATH">MATH</option>
-                    <option value="ME">ME</option>
-                    <option value="MEDVL">MEDVL</option>
-                    <option value="MISC">MISC</option>
-                    <option value="MNS">MNS</option>
-                    <option value="MSCI"></option>
-                    <option value="MTE">MTE</option>
-                    <option value="MTHEL">MTHEL</option>
-                    <option value="MUSIC">MUSIC</option>
-                    <option value="NANO">NANO</option>
-                    <option value="NATST">NATST</option>
-                    <option value="NE">NE</option>
-                    <option value="OPTOM">OPTOM</option>
-                    <option value="PACS">PACS</option>
-                    <option value="PD">PD</option>
-                    <option value="PDARCH">PDARCH</option>
-                    <option value="PDPHRM"></option>
-                    <option value="PHARM">PHARM</option>
-                    <option value="PHIL">PHIL</option>
-                    <option value="PHS">PHS</option>
-                    <option value="PHYS">PHYS</option>
-                    <option value="PLAN">PLAN</option>
-                    <option value="PLCG">PLCG</option>
-                    <option value="PMATH">PMATH</option>
-                    <option value="PORT">PORT</option>
-                    <option value="PS">PS</option>
-                    <option value="PSCI">PSCI</option>
-                    <option value="PSYCH">PSYCH</option>
-                    <option value="QIC">QIC</option>
-                    <option value="REC">REC</option>
-                    <option value="REES">REES</option>
-                    <option value="RELC">RELC</option>
-                    <option value="RS">RS</option>
-                    <option value="RSCH">RSCH</option>
-                    <option value="RUSS">RUSS</option>
-                    <option value="SCBUS">SCBUS</option>
-                    <option value="SCI">SCI</option>
-                    <option value="SDS">SDS</option>
-                    <option value="SE">SE</option>
-                    <option value="SEQ">SEQ</option>
-                    <option value="SI">SI</option>
-                    <option value="SMF">SMF</option>
-                    <option value="SOC">SOC</option>
-                    <option value="SOCE">SOCE</option>
-                    <option value="SOCIN">SOCIN</option>
-                    <option value="SOCWK">SOCWK</option>
-                    <option value="SPAN">SPAN</option>
-                    <option value="SPCOM">SPCOM</option>
-                    <option value="STAT">STAT</option>
-                    <option value="STV">STV</option>
-                    <option value="SUSM">SUSM</option>
-                    <option value="SVENT">SVENT</option>
-                    <option value="SWK">SWK</option>
-                    <option value="SWREN">SWREN</option>
-                    <option value="SYDE">SYDE</option>
-                    <option value="TAX">TAX</option>
-                    <option value="TN">TN</option>
-                    <option value="TOUR">TOUR</option>
-                    <option value="TPM">TPM</option>
-                    <option value="TS">TS</option>
-                    <option value="UN">UN</option>
-                    <option value="UNIV">UNIV</option>
-                    <option value="UU">UU</option>
-                    <option value="VCULT">VCULT</option>
-                    <option value="WATER">WATER</option>
-                    <option value="WHMIS">WHMIS</option>
-                    <option value="WKRPT">WKRPT</option>
-                    <option value="WS">WS</option>
-
-                </datalist>
+                    </datalist>
+                </form>
                 <br>
             </div>
         </div>
