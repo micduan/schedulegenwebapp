@@ -1,5 +1,10 @@
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 
+<script>
+token = {{ token }}
+
+</script>
+
 <form action="/schedule" method="POST">
     <div class="login">
         <div class="login-screen">
@@ -24,7 +29,17 @@
                     </div>
 
                     <div class="input-token">
+                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course1num">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+
+                    <div class="input-token">
                         <input list="course" class="login-field" value="" placeholder="Course 2" name="course2">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+
+                    <div class="input-token">
+                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course2num">
                         <label class="login-field-icon fui-user" for="login-name"></label>
                     </div>
 
@@ -34,7 +49,17 @@
                     </div>
 
                     <div class="input-token">
+                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course3num">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+
+                    <div class="input-token">
                         <input list="course" class="login-field" value="" placeholder="Course 4" name="course4">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+
+                    <div class="input-token">
+                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course4num">
                         <label class="login-field-icon fui-user" for="login-name"></label>
                     </div>
 
@@ -44,12 +69,27 @@
                     </div>
 
                     <div class="input-token">
+                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course5num">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+
+                    <div class="input-token">
                         <input list="course" class="login-field" value="" placeholder="Course 6" name="course6">
                         <label class="login-field-icon fui-user" for="login-name"></label>
                     </div>
 
                     <div class="input-token">
+                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course6num">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+
+                    <div class="input-token">
                         <input list="course" class="login-field" value="" placeholder="Course 7" name="course7">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+
+                    <div class="input-token">
+                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course7num">
                         <label class="login-field-icon fui-user" for="login-name"></label>
                     </div>
 
