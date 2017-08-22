@@ -12,7 +12,54 @@ var div = document.getElementById("samptext")
 //	document.getElementById("samptext").innerHTML += (linebreak)
 //}
 
+function createTable() {
+	rn = "20"
+	cn = "6"
+	for (var num_tables = 0; num_tables < 1; num_tables++) {
+		var tableID = 'myTable'.concat(String(num_tables))
+		console.log(tableID)
+		var table = document.createElement("table")
+		var div = document.createElement("div")
+		document.body.appendChild(table);                    // Append <button> to <body>
+		document.body.appendChild(div);                    // Append <button> to <body>
+		table.setAttribute("id", tableID);
+		for(var r=0;r<parseInt(rn,10);r++) {
+		    var x=document.getElementById(tableID).insertRow(r);
+		    for(var c=0;c<parseInt(cn,10);c++) {
+		    	var y=  x.insertCell(c);
+		    	y.innerHTML="Row-"+r+" Column-"+c; 
+		    }
+		}
+		document.write("\n");
+	}
+}
+
+window.onload = function tableCreate() {
+    var body = document.getElementsByTagName('body')[0];
+    var tbl = document.createElement('table');
+    tbl.style.width = '100%';
+    tbl.setAttribute('border', '1');
+    var tbdy = document.createElement('tbody');
+    for (var i = 0; i < 3; i++) {
+        var tr = document.createElement('tr');
+        for (var j = 0; j < 2; j++) {
+            if (i == 2 && j == 1) {
+                break
+            } else {
+                var td = document.createElement('td');
+                td.appendChild(document.createTextNode('\u0020'))
+                i == 1 && j == 1 ? td.setAttribute('rowSpan', '2') : null;
+                tr.appendChild(td)
+            }
+        }
+        tbdy.appendChild(tr);
+    }
+    tbl.appendChild(tbdy);
+    body.appendChild(tbl)
+}
+
 window.onload = function start() {
+	createTable()
 	for (var i = 0; i < permutations; i++) {
 		document.getElementById("samptext").innerHTML += (String(schedule[i]))
 		document.getElementById("samptext").innerHTML += "<br>"
@@ -22,3 +69,5 @@ window.onload = function start() {
 </script>
 
 <div id="samptext"></div>
+<table id="myTable" border="1">
+</table><form>
