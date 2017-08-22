@@ -10,24 +10,20 @@ def compare_two( lstA, lstB ):
 def check_combos2( lst ):
 	#print(lst[:min(len(lst),2)])
 	if len(lst) <= 3:
-		#print("True")
 		return True
 	elif compare_two(lst[0], lst[1]):
 		return check_combos2(lst[1:])
 	else:
-		#print("False")
 		return False
  		
 def check_week( lst ):
 	x = 0
-	tof = True
 	for num in range(0, len(lst)):
 		if check_combos2(lst[x]):
 	 		x = x+1
 		else:
-  	 		tof = False
-  	 		break
-	return tof
+  	 		return False
+	return True
 
 
 def sort_classes( lst ): 
