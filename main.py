@@ -1,35 +1,5 @@
 from flask import Flask, render_template, request
 from uwaterlooapi import UWaterlooAPI
-import Permutation
-import checkvalid
-import Check
-import json
-
-myvar = UWaterlooAPI(api_key="095d66cb11782db91d922ab219eccb67")
-
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template("main.html")
-
-@app.route('/token', methods=['POST', 'GET'])
-def token():
-    if request.method == 'GET':
-        return render_template("main.html")
-    elif request.method == 'POST':
-        if request.form['password'] != "":
-            uw = UWaterlooAPI(api_key=request.form['password'])
-            if 'temperature_24hr_min_c' in uw.current_weather():
-                return render_template("select.html", token=request.form['password'])
-            else:
-                return "Invalid API Token"
-        else:
-            return render_template("main.html")
-
-from flask import Flask, render_template, request
-from uwaterlooapi import UWaterlooAPI
 import itertools
 import Permutation
 import checkvalid
@@ -82,6 +52,9 @@ def schedule():
     for course in range(1,num_courses + 1):
         course_name = request.form['course' + str(course)]
         course_number = request.form['course' + str(course) + 'num']
+        if not checkvalid.check_valid(course_name,course_number):
+            error_message = ''.join([course_name, course_number, " is not a valid course."])
+            return render_template("error.html", errormsg = error_message)
         courses_list = uw.course_schedule(course_name, course_number)
         num_sections = len(courses_list)
 
@@ -129,6 +102,8 @@ def schedule():
         if (Check.sort_classes(flattened) == False):
             master_list[schedule] = []
     final_list = filter(None, master_list)
+    if len(final_list) == 0:
+        final_list = "Sorry, there's no possible schedules!"
     return render_template("schedule.html", schedule=final_list)
 
 
