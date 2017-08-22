@@ -37,31 +37,37 @@ def sort_classes( lst ):
 	thurs = []
 	fri = []
 	length = len(lst)
-	for x in range(0, length):
+	for x in range(0, length - 3):
 		if 'M' in lst[x]:
 			mon.append('M')
 			mon.append(lst[x+1])
 			mon.append(lst[x+2])
+			mon.append(lst[x+3])
 		if 'W' in lst[x]:
 			wed.append('W')
 			wed.append(lst[x+1])
-			wed.append(lst[x+2])						
+			wed.append(lst[x+2])
+			wed.append(lst[x+3])
 		if 'F' in lst[x]:
 			fri.append('F')
 			fri.append(lst[x+1])
-			fri.append(lst[x+2])						
+			fri.append(lst[x+2])
+			fri.append(lst[x+3])
 		if 'Th' in lst[x]:
 			thurs.append('Th')
 			thurs.append(lst[x+1])
-			thurs.append(lst[x+2])						
+			thurs.append(lst[x+2])
+			thurs.append(lst[x+3])
 		if 'TT' in lst[x]:
 			tues.append('T')
 			tues.append(lst[x+1])
-			tues.append(lst[x+2])			
+			tues.append(lst[x+2])	
+			tues.append(lst[x+3])
 		if 'T' in lst[x] and 'Th' not in lst[x]:
 			tues.append('T')
 			tues.append(lst[x+1])
 			tues.append(lst[x+2])
+			tues.append(lst[x+3])
 	new_mon = sorted(mon, key=itemgetter(0))
 	new_tues = sorted(tues, key=itemgetter(0))
 	new_wed = sorted(wed, key=itemgetter(0))
