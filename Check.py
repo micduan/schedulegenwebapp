@@ -37,7 +37,7 @@ def sort_classes( lst ):
 	thurs = []
 	fri = []
 	length = len(lst)
-	for x in range(0, length):
+	for x in range(0, length - 3):
 		if 'M' in lst[x]:
 			mon.append('M')
 			mon.append(lst[x+1])
@@ -77,3 +77,4 @@ def sort_classes( lst ):
 	sorted_classes.append(new_fri)
 
 	return check_week(sorted_classes)
+

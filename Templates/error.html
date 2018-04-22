@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+
+
+<div class="login">
+    <div class="login-screen">
+        <div class="page-title">
+            <h1>ScheduleGenerator v1.0</h1>
+        </div>
+
+        <div class="text-form">
+
+            <div class="error">
+                {{ errormsg }}
+            </div>
+            <br>
+            <br>
+            <div class="instructions">
+                To return to your course selection, click the button below.
+            </div>
+            <br>
+            <br>
+            <button onclick="goBack()">Go Back </button>
+            <br>
+        </div>
+    </div>
+</div>
+
+
+
+

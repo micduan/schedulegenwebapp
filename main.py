@@ -1,11 +1,21 @@
 from flask import Flask, render_template, request
 from uwaterlooapi import UWaterlooAPI
+import itertools
 import Permutation
 import checkvalid
 import Check
 import json
+import getCourses
 
-myvar = UWaterlooAPI(api_key="095d66cb11782db91d922ab219eccb67")
+def flatten(container):
+    for i in container:
+        if isinstance(i, (list,tuple)):
+            for j in flatten(i):
+                yield j
+        else:
+            yield i
+
+myvar = UWaterlooAPI(api_key="1fc3b6c386a6fbe81e12e88ed4e36f4a")
 
 
 app = Flask(__name__)
@@ -21,295 +31,85 @@ def token():
     elif request.method == 'POST':
         if request.form['password'] != "":
             uw = UWaterlooAPI(api_key=request.form['password'])
+
+            courses = getCourses.courses(uw)
+
+
             if 'temperature_24hr_min_c' in uw.current_weather():
-                return render_template("select.html", token=request.form['password'])
+                return render_template("select.html", token=request.form['password'], courses=courses)
             else:
                 return "Invalid API Token"
         else:
             return render_template("main.html")
 
-@app.route('/schedule', methods=['POST'])
+@app.route('/schedule', methods=['POST', 'GET'])
 def schedule():
-    uw = UWaterlooAPI(api_key="095d66cb11782db91d922ab219eccb67")
+    uw = UWaterlooAPI(api_key="1fc3b6c386a6fbe81e12e88ed4e36f4a")
+
     num_courses = 0
-    if request.form['course1']:
-        num_courses = 1
-        if request.form['course2']:
-            num_courses = 2
-            if request.form['course3']:
-                num_courses = 3
-                if request.form['course4']:
-                    num_courses = 4
-                    if request.form['course5']:
-                        num_courses = 5
-                        if request.form['course6']:
-                            num_courses = 6
-                            if request.form['course7']:
-                                num_courses = 7
+    for num in range(1,8):
+        if request.form['course' + str(num)]:
+            num_courses = num
 
-    masterlist = []
-    mylist = []
-    bool1 = False
-    bool2 = False
-    bool3 = False
-    bool4 = False
-    bool5 = False
-    bool6 = False
-    bool7 = False
+    master_list = []
+    individual_list = []
 
-    course_1 = request.form['course1']
-    course_1num = request.form['course1num']
-    dict = uw.course_schedule(course_1, course_1num)
-    total_classes = len(dict)
+    for course in range(1,num_courses + 1):
+        course_name = request.form['course' + str(course)]
+        course_number = request.form['course' + str(course) + 'num']
+        if not checkvalid.check_valid(course_name,course_number):
+            error_message = ''.join([course_name, course_number, " is not a valid course."])
+            return render_template("error.html", errormsg = error_message)
+        courses_list = uw.course_schedule(course_name, course_number)
+        num_sections = len(courses_list)
 
-    if (checkvalid.check_valid(course_1,course_1num) == False):
-        return "courses 1 invalid"
+        course_list = []
+        lecture_list = []
+        tutorial_list = []
+        lab_list = []
+        for section in range(0, num_sections):
+            class_type = courses_list[section]['section']
+            if class_type.find("LEC") == 0:
+                lec_section = [(courses_list[section]['classes'][0]['date']['weekdays']),
+                (courses_list[section]['classes'][0]['date']['start_time']),
+                (courses_list[section]['classes'][0]['date']['end_time']),
+                (courses_list[section]['section'])]
+                lecture_list.append(lec_section)
+            if class_type.find("TUT") == 0:
+                tut_section = [(courses_list[section]['classes'][0]['date']['weekdays']),
+                (courses_list[section]['classes'][0]['date']['start_time']),
+                (courses_list[section]['classes'][0]['date']['end_time']),
+                (courses_list[section]['section'])]
+                tutorial_list.append(tut_section)
+            if class_type.find("LAB") == 0:
+                lab_section = [(courses_list[section]['classes'][0]['date']['weekdays']),
+                (courses_list[section]['classes'][0]['date']['start_time']),
+                (courses_list[section]['classes'][0]['date']['end_time']),
+                (courses_list[section]['section'])]
+                lab_list.append(lab_section)
 
-    for x in range(0, total_classes):
+        if lecture_list:
+            course_list.append(lecture_list)
+        if tutorial_list:
+            course_list.append(tutorial_list)
+        if lab_list:
+            course_list.append(lab_list)
+        if master_list:
+            course_list.append(master_list)
 
-        if (num_courses > 1 and bool2 == False):
-            bool2 = True
-            course_2 = request.form['course2']
-            course_2num = request.form['course2num']
+        master_list = list(itertools.product(*course_list))
 
-            dict2 = uw.course_schedule(course_2,course_2num)
-            total_classes_2 = len(dict2)
-
-            if (checkvalid.check_valid(course_2,course_2num) == False):
-                return 'courses 2 invalid'      
-
-        elif (num_courses > 1):
-
-            for y in range(0, total_classes_2):
-
-                if (num_courses > 2 and bool3 == False):
-                    bool3 = True
-                    course_3 = request.form['course3']
-                    course_3num = request.form['course3num']
-
-                    dict3 = uw.course_schedule(course_3,course_3num)
-                    total_classes_3 = len(dict3)
-
-                    if (checkvalid.check_valid(course_3,course_3num) == False):
-                        return 'courses 3 invalid'                  
-
-                elif (num_courses > 2):
-                    for z in range(0, total_classes_3):
-
-                        if (num_courses > 3 and bool4 == False):
-                            bool4 = True
-                            course_4 = request.form['course4']
-                            course_4num = request.form['course4num']
-
-                            dict4 = uw.course_schedule(course_4,course_4num)
-                            total_classes_4 = len(dict4)
-
-                            if (checkvalid.check_valid(course_4,course_4num) == False):
-                                return 'courses 4 invalid'
-
-                        elif (num_courses > 3):
-                            for a in range(0, total_classes_4):
-
-                                if (num_courses > 4 and bool5 == False):
-                                    bool5 = True
-                                    course_5 = request.form['course5']
-                                    course_5num = request.form['course5num']
-
-                                    dict5 = uw.course_schedule(course_5,course_5num)
-                                    total_classes_5 = len(dict5)
-
-                                    if (checkvalid.check_valid(course_5,course_5num) == False):
-                                        return 'courses 5 invalid'                              
-
-                                elif (num_courses > 4):
-                                    for b in range(0, total_classes_5):
-
-                                        if (num_courses > 5 and bool6 == False):
-                                            bool6 = True
-                                            course_6 = request.form['course6']
-                                            course_6num = request.form['course6num']
-
-                                            dict6 = uw.course_schedule(course_6,course_6num)
-                                            total_classes_6 = len(dict6)
-
-                                            if (checkvalid.check_valid(course_6,course_6num) == False):
-                                                return 'courses 6 invalid'                                      
-
-                                        elif (num_courses > 5):
-                                            for c in range(0, total_classes_6):
-
-                                                if (num_courses > 6 and bool7 == False):
-                                                    bool7 = True
-                                                    course_7 = request.form['course7']
-                                                    course_7num = request.form['course7num']
-
-                                                    dict7 = uw.course_schedule(course_7,course_7num)
-                                                    total_classes_7 = len(dict7)
-
-                                                    if (checkvalid.check_valid(course_7,course_7num) == False):
-                                                        return 'courses 7 invalid'
-
-
-                                                elif (num_courses > 6):
-                                                    for d in range(0, total_classes_7):
-
-                                                        mylist = [(dict[x]['classes'][0]['date']['weekdays']),
-                                                        (dict[x]['classes'][0]['date']['start_time']),
-                                                        (dict[x]['classes'][0]['date']['end_time']),
-                                                        (dict2[y]['classes'][0]['date']['weekdays']),
-                                                        (dict2[y]['classes'][0]['date']['start_time']),
-                                                        (dict2[y]['classes'][0]['date']['end_time']),
-                                                        (dict3[z]['classes'][0]['date']['weekdays']),
-                                                        (dict3[z]['classes'][0]['date']['start_time']),
-                                                        (dict3[z]['classes'][0]['date']['end_time']),
-                                                        (dict4[a]['classes'][0]['date']['weekdays']),
-                                                        (dict4[a]['classes'][0]['date']['start_time']),
-                                                        (dict4[a]['classes'][0]['date']['end_time']),
-                                                        (dict5[b]['classes'][0]['date']['weekdays']),
-                                                        (dict5[b]['classes'][0]['date']['start_time']),
-                                                        (dict5[b]['classes'][0]['date']['end_time']),
-                                                        (dict6[c]['classes'][0]['date']['weekdays']),
-                                                        (dict6[c]['classes'][0]['date']['start_time']),
-                                                        (dict6[c]['classes'][0]['date']['end_time']),
-                                                        (dict7[d]['classes'][0]['date']['weekdays']),
-                                                        (dict7[d]['classes'][0]['date']['start_time']),
-                                                        (dict7[d]['classes'][0]['date']['end_time'])]
-
-                                                        if (Check.sort_classes(mylist) == True):
-                                                            masterlist.append(mylist)
-
-                                                    d = 0
-                                                    c = 0
-
-                                                else:
-                                                    mylist = [(dict[x]['classes'][0]['date']['weekdays']),
-                                                    (dict[x]['classes'][0]['date']['start_time']),
-                                                    (dict[x]['classes'][0]['date']['end_time']),
-                                                    (dict2[y]['classes'][0]['date']['weekdays']),
-                                                    (dict2[y]['classes'][0]['date']['start_time']),
-                                                    (dict2[y]['classes'][0]['date']['end_time']),
-                                                    (dict3[z]['classes'][0]['date']['weekdays']),
-                                                    (dict3[z]['classes'][0]['date']['start_time']),
-                                                    (dict3[z]['classes'][0]['date']['end_time']),
-                                                    (dict4[a]['classes'][0]['date']['weekdays']),
-                                                    (dict4[a]['classes'][0]['date']['start_time']),
-                                                    (dict4[a]['classes'][0]['date']['end_time']),
-                                                    (dict5[b]['classes'][0]['date']['weekdays']),
-                                                    (dict5[b]['classes'][0]['date']['start_time']),
-                                                    (dict5[b]['classes'][0]['date']['end_time']),
-                                                    (dict6[c]['classes'][0]['date']['weekdays']),
-                                                    (dict6[c]['classes'][0]['date']['start_time']),
-                                                    (dict6[c]['classes'][0]['date']['end_time'])]
-                                            
-                                                    if (Check.sort_classes(mylist) == True):
-                                                        masterlist.append(mylist)                                           
-                                            c = 0
-                                            b = 0
-                                            d = 0
-
-                                        else:
-                                            mylist = [(dict[x]['classes'][0]['date']['weekdays']),
-                                            (dict[x]['classes'][0]['date']['start_time']),
-                                            (dict[x]['classes'][0]['date']['end_time']),
-                                            (dict2[y]['classes'][0]['date']['weekdays']),
-                                            (dict2[y]['classes'][0]['date']['start_time']),
-                                            (dict2[y]['classes'][0]['date']['end_time']),
-                                            (dict3[z]['classes'][0]['date']['weekdays']),
-                                            (dict3[z]['classes'][0]['date']['start_time']),
-                                            (dict3[z]['classes'][0]['date']['end_time']),
-                                            (dict4[a]['classes'][0]['date']['weekdays']),
-                                            (dict4[a]['classes'][0]['date']['start_time']),
-                                            (dict4[a]['classes'][0]['date']['end_time']),
-                                            (dict5[b]['classes'][0]['date']['weekdays']),
-                                            (dict5[b]['classes'][0]['date']['start_time']),
-                                            (dict5[b]['classes'][0]['date']['end_time'])]
-                                            
-                                            if (Check.sort_classes(mylist) == True):
-                                                masterlist.append(mylist)
-
-                                    c = 0
-                                    b = 0
-                                    d = 0
-                                    a = 0
-
-                                else:
-                                    mylist = [(dict[x]['classes'][0]['date']['weekdays']),
-                                    (dict[x]['classes'][0]['date']['start_time']),
-                                    (dict[x]['classes'][0]['date']['end_time']),
-                                    (dict2[y]['classes'][0]['date']['weekdays']),
-                                    (dict2[y]['classes'][0]['date']['start_time']),
-                                    (dict2[y]['classes'][0]['date']['end_time']),
-                                    (dict3[z]['classes'][0]['date']['weekdays']),
-                                    (dict3[z]['classes'][0]['date']['start_time']),
-                                    (dict3[z]['classes'][0]['date']['end_time']),
-                                    (dict4[a]['classes'][0]['date']['weekdays']),
-                                    (dict4[a]['classes'][0]['date']['start_time']),
-                                    (dict4[a]['classes'][0]['date']['end_time'])]   
-
-
-                                    if (Check.sort_classes(mylist) == True):
-                                        masterlist.append(mylist)
-                            a = 0
-                            b = 0
-                            c = 0
-                            d = 0
-                            z = 0
-
-                        else:
-                            mylist = [(dict[x]['classes'][0]['date']['weekdays']),
-                            (dict[x]['classes'][0]['date']['start_time']),
-                            (dict[x]['classes'][0]['date']['end_time']),
-                            (dict2[y]['classes'][0]['date']['weekdays']),
-                            (dict2[y]['classes'][0]['date']['start_time']),
-                            (dict2[y]['classes'][0]['date']['end_time']),
-                            (dict3[z]['classes'][0]['date']['weekdays']),
-                            (dict3[z]['classes'][0]['date']['start_time']),
-                            (dict3[z]['classes'][0]['date']['end_time'])]
-
-                            try:
-                                if (Check.sort_classes(mylist) == True):
-                                    masterlist.append(mylist)
-                            except:
-                                return str(mylist)
-                    z = 0
-                    a = 0 
-                    b = 0
-                    c = 0
-                    d = 0
-                    y = 0
-
-                else:
-                    mylist = [(dict[x]['classes'][0]['date']['weekdays']),
-                    (dict[x]['classes'][0]['date']['start_time']),
-                    (dict[x]['classes'][0]['date']['end_time']),
-                    (dict2[y]['classes'][0]['date']['weekdays']),
-                    (dict2[y]['classes'][0]['date']['start_time']),
-                    (dict2[y]['classes'][0]['date']['end_time'])]
-
-                    if (Check.sort_classes(mylist) == True):
-                        masterlist.append(mylist)
-
-            y = 0
-            a = 0
-            b = 0 
-            c = 0
-            d = 0
-            z = 0
-
-
-        else:
-            mylist = [(dict[x]['classes'][0]['date']['weekdays']),
-            (dict[x]['classes'][0]['date']['start_time']),
-            (dict[x]['classes'][0]['date']['end_time'])]
-
-            if (Check.sort_classes(mylist) == True):
-                masterlist.append(mylist)
-                     
-    return render_template("schedule.html", schedule=masterlist)
-#def schedule():
-#    return render_template("schedule.html", token=request.form['password'], course1=request.form['course1'], course2=request.form['course2'], 
-#        course3=request.form['course3'], course4=request.form['course4'], course5=request.form['course5'], course6=request.form['course6'],
-#        course7=request.form['course7'])
+    for schedule in range(0,len(master_list)):
+        try:
+            flattened = list(flatten(master_list[schedule]))
+        except:
+            return str(master_list[schedule])
+        if (Check.sort_classes(flattened) == False):
+            master_list[schedule] = []
+    final_list = filter(None, master_list)
+    if len(final_list) == 0:
+        final_list = "Sorry, there's no possible schedules!"
+    return render_template("schedule.html", schedule=final_list)
 
 
 if __name__ == "__main__":
