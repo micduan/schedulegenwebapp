@@ -28,6 +28,8 @@ def check_week( lst ):
   	 		tof = False
   	 		break
 	return tof
+  	 		return False
+	return True
 
 
 def sort_classes( lst ): 
@@ -57,7 +59,7 @@ def sort_classes( lst ):
 		if 'TT' in lst[x]:
 			tues.append('T')
 			tues.append(lst[x+1])
-			tues.append(lst[x+2])			
+			tues.append(lst[x+2])	
 		if 'T' in lst[x] and 'Th' not in lst[x]:
 			tues.append('T')
 			tues.append(lst[x+1])
@@ -77,4 +79,3 @@ def sort_classes( lst ):
 	sorted_classes.append(new_fri)
 
 	return check_week(sorted_classes)
-
