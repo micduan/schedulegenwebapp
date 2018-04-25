@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 from uwaterlooapi import UWaterlooAPI
+from pprint import pprint
 import itertools
 import Permutation
 import checkvalid
 import Check
 import json
 import getCourses
+import Course
 
 def flatten(container):
     for i in container:
@@ -101,14 +103,20 @@ def schedule():
 
     for schedule in range(0,len(master_list)):
         try:
-            flattened = list(flatten(master_list[schedule]))
+            flattened_list = list(flatten(master_list[schedule]))
         except:
             return str(master_list[schedule])
-        if (Check.sort_classes(flattened) == False):
+
+        if (Check.sort_classes(flattened_list) == False):
             master_list[schedule] = []
+        else:
+            master_list[schedule] = list(flatten(master_list[schedule]))
+
     final_list = filter(None, master_list)
+
     if len(final_list) == 0:
         final_list = "Sorry, there's no possible schedules!"
+
     return render_template("schedule.html", schedule=final_list)
 
 
