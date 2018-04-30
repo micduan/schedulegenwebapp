@@ -43,7 +43,7 @@ def check_week( lst ):
 	return True
 
 
-def sort_classes( lst ): 
+def valid_schedule( lst ): 
 	mon = []
 	tues = []
 	wed = []

@@ -20,7 +20,7 @@ def flatten(container):
 myvar = UWaterlooAPI(api_key="1fc3b6c386a6fbe81e12e88ed4e36f4a")
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='Templates')
 
 @app.route('/')
 def index():
@@ -107,7 +107,7 @@ def schedule():
         except:
             return str(master_list[schedule])
 
-        if (Check.sort_classes(flattened_list) == False):
+        if (Check.valid_schedule(flattened_list) == False):
             master_list[schedule] = []
         else:
             master_list[schedule] = list(flatten(master_list[schedule]))
@@ -119,6 +119,5 @@ def schedule():
 
     return render_template("schedule.html", schedule=final_list)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
