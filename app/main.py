@@ -7,7 +7,7 @@ import checkvalid
 import Check
 import json
 import getCourses
-import Course
+from Course import Course
 
 def flatten(container):
     for i in container:
@@ -117,7 +117,27 @@ def schedule():
     if len(final_list) == 0:
         final_list = "Sorry, there's no possible schedules!"
 
-    return render_template("schedule.html", schedule=final_list)
+    actual_final_list = []
+
+
+    courses = [Course() for i in range(len(final_list))]
+    #0 and 452
+    index = 0
+    for course_index in courses:
+        course_index.fill_dates(final_list[index])
+        actual_final_list.append(course_index.convert_course_to_list())
+        index += 1
+        del course_index
+
+    '''for index in final_list:
+        print 'hi'
+        course = Course()
+        return final_list[0]
+        dump(index)
+        course.fill_dates(index)
+        actual_final_list.append(course)'''
+
+    return render_template("schedule.html", schedule=actual_final_list)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

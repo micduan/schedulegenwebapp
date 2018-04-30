@@ -1,5 +1,52 @@
 <div id="samptext"></div>
 {% for sched in schedule %}
-	<div>{{ sched }}</div>
+	<table border="1">
+		<tr>
+			<th>Time</th>
+			<th>Monday</th>
+			<th>Tuesday</th>
+			<th>Wednesday</th>
+			<th>Thursday</th>
+			<th>Friday</th>
+			<th>Saturday</th>
+			<th>Sunday</th>
+		</tr>
+
+	{% set time = 830 %}
+	{% for time in sched %}
+	<tr>
+		<td>{{ time.time }}</td>
+		{% if time.M %}
+		<td bgcolor="#FF0000"></td>
+		{% else %}
+		<td></td>
+		{% endif %}
+
+		{% if time.T %}
+		<td bgcolor="#FF0000"></td>
+		{% else %}
+		<td></td>
+		{% endif %}
+
+		{% if time.W %}
+		<td bgcolor="#FF0000"></td>
+		{% else %}
+		<td></td>
+		{% endif %}
+
+		{% if time.Th %}
+		<td bgcolor="#FF0000"></td>
+		{% else %}
+		<td></td>
+		{% endif %}
+
+		{% if time.F %}
+		<td bgcolor="#FF0000"></td>
+		{% else %}
+		<td></td>
+		{% endif %}
+	</tr>
+	{% endfor %}
+</br>
 {% endfor %}
 <table id="myTable" border="1">

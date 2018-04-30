@@ -1,6 +1,10 @@
 from uwaterlooapi import UWaterlooAPI
 
 def courses(api):
+	"""
+	api: instance of uwaterloo API
+	returns a list of all courses the school is offering
+	"""
 	uwaterloocourses = api.courses()
 
 	courses = []
