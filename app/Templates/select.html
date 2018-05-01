@@ -1,5 +1,17 @@
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 
+<style>
+.container{
+    display: flex;
+}
+.course-num{
+    width: 150px;
+}
+.course{
+    flex-grow: 1;
+}
+</style>
+
 <script>
 token = {{ token }}
 
@@ -23,84 +35,105 @@ token = {{ token }}
                 <br>
                 <br>
                 <form method="POST" action="/schedule">
-                    <div class="input-token">
-                        <input list="course" class="login-field" value="" placeholder="Course 1" name="course1">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    <input type="hidden" name="token" value="{{ token }}">
+                    <div class="container">
+                        <div class="input-token">
+                            <input class="login-field course" value="" placeholder="Course 1" name="course1">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+
+                        <div class="input-token">
+                            <input class="login-field course-num" value="" placeholder="Course 1" name="course1num">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="input-token">
+                            <input class="login-field course" value="" placeholder="Course 2" name="course2">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+
+                        <div class="input-token">
+                            <input class="login-field course-num" value="" placeholder="Course 1" name="course2num">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="input-token">
+                            <input class="login-field course" value="" placeholder="Course 3" name="course3">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+
+                        <div class="input-token">
+                            <input class="login-field course-num" value="" placeholder="Course 1" name="course3num">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="input-token">
+                            <input class="login-field course" value="" placeholder="Course 4" name="course4">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+
+                        <div class="input-token">
+                            <input class="login-field course-num" value="" placeholder="Course 1" name="course4num">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="input-token">
+                            <input class="login-field course" value="" placeholder="Course 5" name="course5">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+
+                        <div class="input-token">
+                            <input class="login-field course-num" value="" placeholder="Course 1" name="course5num">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="input-token">
+                            <input class="login-field course" value="" placeholder="Course 6" name="course6">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+
+                        <div class="input-token">
+                            <input class="login-field course-num" value="" placeholder="Course 1" name="course6num">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="input-token">
+                            <input class="login-field course" value="" placeholder="Course 7" name="course7">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+
+                        <div class="input-token">
+                            <input class="login-field course-num" value="" placeholder="Course 1" name="course7num">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
                     </div>
 
                     <div class="input-token">
-                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course1num">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course" class="login-field" value="" placeholder="Course 2" name="course2">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course2num">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course" class="login-field" value="" placeholder="Course 3" name="course3">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course3num">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course" class="login-field" value="" placeholder="Course 4" name="course4">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course4num">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course" class="login-field" value="" placeholder="Course 5" name="course5">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course5num">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course" class="login-field" value="" placeholder="Course 6" name="course6">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course6num">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course" class="login-field" value="" placeholder="Course 7" name="course7">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
-                    </div>
-
-                    <div class="input-token">
-                        <input list="course-number" class="login-field" value="" placeholder="Course 1" name="course7num">
-                        <label class="login-field-icon fui-user" for="login-name"></label>
+                        Filtered: <input type="checkbox" value="12:00" name="filter">
                     </div>
 
                     <input type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
 
-                    <datalist id="course">
-                            {% for course in courses %}
-                                <option value={{ course }}>{{ course }}</option>
-                            {% endfor %}
+                    <div>
+                        <select id="course">
+                                {% for course in courses %}
+                                    <option value={{ course }}>{{ course }}</option>
+                                {% endfor %}
 
-                    </datalist>
+                        </select>
+                    </div>
                 </form>
                 <br>
             </div>

@@ -1,9 +1,4 @@
 class Course:
-	mon = {}
-	tues = {}
-	wed = {}
-	thurs = {}
-	fri = {}
 	time_830 = {}
 	time_900 = {}
 	time_930 = {}
@@ -35,11 +30,6 @@ class Course:
 
 
 	def __init__(self):
-		self.mon = {}
-		self.tues = {}
-		self.wed = {}
-		self.thurs = {}
-		self.fri = {}
 		self.time_830 = {'time' : '8:30'}
 		self.time_900 = {'time' : '9:00'}
 		self.time_930 = {'time' : '9:30'}
@@ -78,31 +68,32 @@ class Course:
 		index = 0
 		while index < length and index != length:
 
-			#sometimes the value returned from the API looks like ['none', 'none', 'none', 'LEC081']
+			#sometimes the value returned from the API looks like [u'MWF', u'8:30', u'9:20', u'LEC081']
 
 			if lst[index] is None:
 				continue
 
 			start_time = lst[index + 1].replace(":", "")
 			end_time = lst[index + 2].replace(":", "")
+			instructor = lst[index + 4]
 
 
 			if 'M' in lst[index]:
-				self.add_to_schedule('M', start_time, end_time)
+				self.add_to_schedule('M', start_time, end_time, instructor)
 			if 'W' in lst[index]:
-				self.add_to_schedule('W', start_time, end_time)	
+				self.add_to_schedule('W', start_time, end_time, instructor)	
 			if 'F' in lst[index]:
-				self.add_to_schedule('F', start_time, end_time)
+				self.add_to_schedule('F', start_time, end_time, instructor)
 			if 'Th' in lst[index]:
-				self.add_to_schedule('Th', start_time, end_time)
+				self.add_to_schedule('Th', start_time, end_time, instructor)
 			if 'TT' in lst[index]:
-				self.add_to_schedule('T', start_time, end_time)
+				self.add_to_schedule('T', start_time, end_time, instructor)
 			if 'T' in lst[index] and 'Th' not in lst[index]:
-				self.add_to_schedule('T', start_time, end_time)
+				self.add_to_schedule('T', start_time, end_time, instructor)
 
-			index += 4
+			index += 5
 
-	def add_to_schedule(self, date, start_time, end_time):
+	def add_to_schedule(self, date, start_time, end_time, instructor):
 		"""
 		date: string abbreviation of day of week (Monday through Friday)
 		start_time: time class starts, in unicode (e.g. 8:30)
@@ -117,63 +108,65 @@ class Course:
 		if time_blocks is None:
 			return
 
+		response = [True, instructor]
+
 		for time in time_blocks:
 			if time == 830:
-				self.time_830[date] = True
+				self.time_830[date] = response
 			if time == 900:
-				self.time_900[date] = True
+				self.time_900[date] = response
 			if time == 930:
-				self.time_930[date] = True
+				self.time_930[date] = response
 			if time == 1000:
-				self.time_1000[date] = True
+				self.time_1000[date] = response
 			if time == 1030:
-				self.time_1030[date] = True
+				self.time_1030[date] = response
 			if time == 1100:
-				self.time_1100[date] = True
+				self.time_1100[date] = response
 			if time == 1130:
-				self.time_1130[date] = True
+				self.time_1130[date] = response
 			if time == 1200:
-				self.time_1200[date] = True
+				self.time_1200[date] = response
 			if time == 1230:
-				self.time_1230[date] = True
+				self.time_1230[date] = response
 			if time == 1300:
-				self.time_1300[date] = True
+				self.time_1300[date] = response
 			if time == 1330:
-				self.time_1330[date] = True
+				self.time_1330[date] = response
 			if time == 1400:
-				self.time_1400[date] = True
+				self.time_1400[date] = response
 			if time == 1430:
-				self.time_1430[date] = True
+				self.time_1430[date] = response
 			if time == 1500:
-				self.time_1500[date] = True
+				self.time_1500[date] = response
 			if time == 1530:
-				self.time_1530[date] = True
+				self.time_1530[date] = response
 			if time == 1600:
-				self.time_1600[date] = True
+				self.time_1600[date] = response
 			if time == 1630:
-				self.time_1630[date] = True
+				self.time_1630[date] = response
 			if time == 1700:
-				self.time_1700[date] = True
+				self.time_1700[date] = response
 			if time == 1730:
-				self.time_1730[date] = True
+				self.time_1730[date] = response
 			if time == 1800:
-				self.time_1800[date] = True
+				self.time_1800[date] = response
 			if time == 1830:
-				self.time_1830[date] = True
+				self.time_1830[date] = response
 			if time == 1900:
-				self.time_1900[date] = True
+				self.time_1900[date] = response
 			if time == 1930:
-				self.time_1930[date] = True
+				self.time_1930[date] = response
 			if time == 2000:
-				self.time_2000[date] = True
+				self.time_2000[date] = response
 			if time == 2030:
-				self.time_2030[date] = True
+				self.time_2030[date] = response
 			if time == 2100:
-				self.time_2100[date] = True
+				self.time_2100[date] = response
 			if time == 2130:
-				self.time_2130[date] = True
+				self.time_2130[date] = response
 			if time == 2200:
-				self.time_200[date] = True
+				self.time_200[date] = response
 
 	def get_times_used(self, start_time, end_time):
 		"""

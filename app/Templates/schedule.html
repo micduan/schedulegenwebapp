@@ -12,36 +12,35 @@
 			<th>Sunday</th>
 		</tr>
 
-	{% set time = 830 %}
 	{% for time in sched %}
 	<tr>
 		<td>{{ time.time }}</td>
 		{% if time.M %}
-		<td bgcolor="#FF0000"></td>
+		<td bgcolor="#FF0000">{{ time.M[1] }} </td>
 		{% else %}
 		<td></td>
 		{% endif %}
 
 		{% if time.T %}
-		<td bgcolor="#FF0000"></td>
+		<td bgcolor="#FF0000">{{ time.T[1] }}</td>
 		{% else %}
 		<td></td>
 		{% endif %}
 
 		{% if time.W %}
-		<td bgcolor="#FF0000"></td>
+		<td bgcolor="#FF0000">{{ time.W[1] }}</td>
 		{% else %}
 		<td></td>
 		{% endif %}
 
 		{% if time.Th %}
-		<td bgcolor="#FF0000"></td>
+		<td bgcolor="#FF0000">{{ time.Th[1] }}</td>
 		{% else %}
 		<td></td>
 		{% endif %}
 
 		{% if time.F %}
-		<td bgcolor="#FF0000"></td>
+		<td bgcolor="#FF0000">{{ time.F[1] }}</td>
 		{% else %}
 		<td></td>
 		{% endif %}

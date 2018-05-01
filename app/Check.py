@@ -51,7 +51,8 @@ def valid_schedule( lst ):
 	fri = []
 	length = len(lst)
 	# Only check every 4th element (that'll be what day of the week it is)
-	for x in range(0, length - 3):
+	x = 0
+	while x < length and x != length:
 
 		#sometimes the value returned from the API looks like ['none', 'none', 'none', 'LEC081']
 
@@ -82,6 +83,10 @@ def valid_schedule( lst ):
 			tues.append('T')
 			tues.append(lst[x+1])
 			tues.append(lst[x+2])
+
+		x += 5
+
+
 	new_mon = sorted(mon, key=itemgetter(0))
 	new_tues = sorted(tues, key=itemgetter(0))
 	new_wed = sorted(wed, key=itemgetter(0))

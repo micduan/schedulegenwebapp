@@ -6,6 +6,7 @@ import Permutation
 import checkvalid
 import Check
 import json
+import datetime
 import getCourses
 from Course import Course
 
@@ -16,8 +17,6 @@ def flatten(container):
                 yield j
         else:
             yield i
-
-myvar = UWaterlooAPI(api_key="1fc3b6c386a6fbe81e12e88ed4e36f4a")
 
 
 app = Flask(__name__, template_folder='Templates')
@@ -46,7 +45,10 @@ def token():
 
 @app.route('/schedule', methods=['POST', 'GET'])
 def schedule():
-    uw = UWaterlooAPI(api_key="1fc3b6c386a6fbe81e12e88ed4e36f4a")
+    uw = UWaterlooAPI(api_key=request.form['token'])
+
+    no_classes_before = request.form['filter']
+    no_classes_before_time = datetime.datetime.strptime(no_classes_before, '%H:%M')
 
     num_courses = 0
     for num in range(1,8):
@@ -72,22 +74,46 @@ def schedule():
         for section in range(0, num_sections):
             class_type = courses_list[section]['section']
             if class_type.find("LEC") == 0:
-                lec_section = [(courses_list[section]['classes'][0]['date']['weekdays']),
-                (courses_list[section]['classes'][0]['date']['start_time']),
-                (courses_list[section]['classes'][0]['date']['end_time']),
-                (courses_list[section]['section'])]
+                days = courses_list[section]['classes'][0]['date']['weekdays']
+                start_time = courses_list[section]['classes'][0]['date']['start_time']
+
+                if no_classes_before:
+                    start_time_datetime = datetime.datetime.strptime(start_time, '%H:%M')
+                    if start_time_datetime < no_classes_before_time:
+                        continue
+
+                end_time = courses_list[section]['classes'][0]['date']['end_time']
+                course_type = courses_list[section]['section'] #either LEC, LAB, or TUT
+                instructor = str(courses_list[section]['classes'][0]['instructors'])
+                lec_section  = [days, start_time, end_time, course_type, instructor]
                 lecture_list.append(lec_section)
             if class_type.find("TUT") == 0:
-                tut_section = [(courses_list[section]['classes'][0]['date']['weekdays']),
-                (courses_list[section]['classes'][0]['date']['start_time']),
-                (courses_list[section]['classes'][0]['date']['end_time']),
-                (courses_list[section]['section'])]
+                days = courses_list[section]['classes'][0]['date']['weekdays']
+                start_time = courses_list[section]['classes'][0]['date']['start_time']
+
+                if no_classes_before:
+                    start_time_datetime = datetime.datetime.strptime(start_time, '%H:%M')
+                    if start_time_datetime < no_classes_before_time:
+                        continue
+
+                end_time = courses_list[section]['classes'][0]['date']['end_time']
+                course_type = courses_list[section]['section'] #either LEC, LAB, or TUT
+                instructor = str(courses_list[section]['classes'][0]['instructors'])
+                tut_section = [days, start_time, end_time, course_type, instructor]
                 tutorial_list.append(tut_section)
             if class_type.find("LAB") == 0:
-                lab_section = [(courses_list[section]['classes'][0]['date']['weekdays']),
-                (courses_list[section]['classes'][0]['date']['start_time']),
-                (courses_list[section]['classes'][0]['date']['end_time']),
-                (courses_list[section]['section'])]
+                days = courses_list[section]['classes'][0]['date']['weekdays']
+                start_time = courses_list[section]['classes'][0]['date']['start_time']
+
+                if no_classes_before:
+                    start_time_datetime = datetime.datetime.strptime(start_time, '%H:%M')
+                    if start_time_datetime < no_classes_before_time:
+                        continue
+                
+                end_time = courses_list[section]['classes'][0]['date']['end_time']
+                course_type = courses_list[section]['section'] #either LEC, LAB, or TUT
+                instructor = str(courses_list[section]['classes'][0]['instructors'])
+                lab_section = [days, start_time, end_time, course_type, instructor]
                 lab_list.append(lab_section)
 
         if lecture_list:
@@ -121,7 +147,6 @@ def schedule():
 
 
     courses = [Course() for i in range(len(final_list))]
-    #0 and 452
     index = 0
     for course_index in courses:
         course_index.fill_dates(final_list[index])
