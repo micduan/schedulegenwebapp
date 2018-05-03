@@ -1,6 +1,28 @@
+<style>
+.arrow-left{
+  position:absolute;
+  top:50%;
+  left:0%;
+  transform:translate(0%,-50%);
+  -ms-transform:translate(-0%,-50%)
+}
+
+.arrow-right{
+  position:absolute;
+  top:50%;
+  right:0%;
+  transform:translate(0%,-50%);
+  -ms-transform:translate(0%,-50%)
+}
+</style>
+
 <div id="samptext"></div>
+{% if not schedule %}
+  Unfortunately there are no schedules that match your requirements.
+{% else %}
+<h1 style="text-align: center"> Your Schedules </h1>  
 {% for sched in schedule %}
-	<table border="1">
+	<table class="sched" border="1">
 		<tr>
 			<th>Time</th>
 			<th>Monday</th>
@@ -46,6 +68,28 @@
 		{% endif %}
 	</tr>
 	{% endfor %}
-</br>
+	<button class="arrow-left" onclick="plusDivs(-1)">&#10094;</button>
+	<button class="arrow-right" onclick="plusDivs(1)">&#10095;</button>
 {% endfor %}
 <table id="myTable" border="1">
+{% endif %}	
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("sched");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+</script>
