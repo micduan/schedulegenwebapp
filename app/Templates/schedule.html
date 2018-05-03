@@ -1,51 +1,96 @@
-<div id="samptext"></div>
-{% for sched in schedule %}
-	<table border="1">
+<style>
+.arrow-left{
+  	position:absolute;
+  	top:50%;
+  	left:0%;
+  	transform:translate(0%,-50%);
+  	-ms-transform:translate(-0%,-50%)
+}
+
+.arrow-right{
+ 	position:absolute;
+ 	top:50%;
+ 	right:0%;
+ 	transform:translate(0%,-50%);
+  	-ms-transform:translate(0%,-50%)
+}
+</style>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+{% if not schedule %}
+  	Unfortunately there are no schedules that match your requirements.
+{% else %}
+	<h1 style="text-align: center"> Your {{ schedule|count }} Possible Schedules </h1>
+	{% for sched in schedule %}
+
+		<table class="sched table" border="1">
+			<tr>
+				<th>Time</th>
+				<th>Monday</th>
+				<th>Tuesday</th>
+				<th>Wednesday</th>
+				<th>Thursday</th>
+				<th>Friday</th>
+			</tr>
+
+		{% for time in sched %}
 		<tr>
-			<th>Time</th>
-			<th>Monday</th>
-			<th>Tuesday</th>
-			<th>Wednesday</th>
-			<th>Thursday</th>
-			<th>Friday</th>
-			<th>Saturday</th>
-			<th>Sunday</th>
+			<td>{{ time.time }}</td>
+			{% if time.M %}
+				<td bgcolor="#FF0000">{{ time.M[1] }} </td>
+			{% else %}
+				<td></td>
+			{% endif %}
+
+			{% if time.T %}
+				<td bgcolor="#FF0000">{{ time.T[1] }}</td>
+			{% else %}
+				<td></td>
+			{% endif %}
+
+			{% if time.W %}
+				<td bgcolor="#FF0000">{{ time.W[1] }}</td>
+			{% else %}
+				<td></td>
+			{% endif %}
+
+			{% if time.Th %}
+				<td bgcolor="#FF0000">{{ time.Th[1] }}</td>
+			{% else %}
+				<td></td>
+			{% endif %}
+
+			{% if time.F %}
+				<td bgcolor="#FF0000">{{ time.F[1] }}</td>
+			{% else %}
+				<td></td>
+			{% endif %}
 		</tr>
+		{% endfor %}
 
-	{% for time in sched %}
-	<tr>
-		<td>{{ time.time }}</td>
-		{% if time.M %}
-		<td bgcolor="#FF0000">{{ time.M[1] }} </td>
-		{% else %}
-		<td></td>
-		{% endif %}
-
-		{% if time.T %}
-		<td bgcolor="#FF0000">{{ time.T[1] }}</td>
-		{% else %}
-		<td></td>
-		{% endif %}
-
-		{% if time.W %}
-		<td bgcolor="#FF0000">{{ time.W[1] }}</td>
-		{% else %}
-		<td></td>
-		{% endif %}
-
-		{% if time.Th %}
-		<td bgcolor="#FF0000">{{ time.Th[1] }}</td>
-		{% else %}
-		<td></td>
-		{% endif %}
-
-		{% if time.F %}
-		<td bgcolor="#FF0000">{{ time.F[1] }}</td>
-		{% else %}
-		<td></td>
-		{% endif %}
-	</tr>
+		<button class="arrow-left" onclick="plusDivs(-1)">&#10094;</button>
+		<button class="arrow-right" onclick="plusDivs(1)">&#10095;</button>
+		</table>
 	{% endfor %}
-</br>
-{% endfor %}
-<table id="myTable" border="1">
+{% endif %}	
+
+<script>
+var schedIndex = 1;
+showDivs(schedIndex);
+
+function plusDivs(n) {
+  showDivs(schedIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("sched");
+  if (n > x.length) {schedIndex = 1}    
+  if (n < 1) {schedIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[schedIndex-1].style.display = "table"; 
+}
+</script>
