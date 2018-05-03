@@ -47,8 +47,19 @@ def token():
 def schedule():
     uw = UWaterlooAPI(api_key=request.form['token'])
 
-    no_classes_before = request.form['filter']
-    no_classes_before_time = datetime.datetime.strptime(no_classes_before, '%H:%M')
+
+    #TODO: ENSURE INPUTS ARE PUT IN VALID FORMAT (USE REGEX)
+    try :
+        no_classes_before = request.form['before_filter']
+        no_classes_before_time = datetime.datetime.strptime(no_classes_before, '%H:%M')
+    except:
+        no_classes_before = None
+
+    try :
+        no_classes_after = request.form['after_filter']
+        no_classes_after_time = datetime.datetime.strptime(no_classes_after, '%H:%M')
+    except:
+        no_classes_after = None
 
     num_courses = 0
     for num in range(1,8):
@@ -83,6 +94,12 @@ def schedule():
                         continue
 
                 end_time = courses_list[section]['classes'][0]['date']['end_time']
+
+                if no_classes_after:
+                    end_time_datetime = datetime.datetime.strptime(end_time, '%H:%M')
+                    if end_time_datetime > no_classes_after_time:
+                        continue
+
                 course_type = courses_list[section]['section'] #either LEC, LAB, or TUT
                 instructor = str(courses_list[section]['classes'][0]['instructors'])
                 lec_section  = [days, start_time, end_time, course_type, instructor]
@@ -97,6 +114,12 @@ def schedule():
                         continue
 
                 end_time = courses_list[section]['classes'][0]['date']['end_time']
+
+                if no_classes_after:
+                    end_time_datetime = datetime.datetime.strptime(end_time, '%H:%M')
+                    if end_time_datetime > no_classes_after_time:
+                        continue
+
                 course_type = courses_list[section]['section'] #either LEC, LAB, or TUT
                 instructor = str(courses_list[section]['classes'][0]['instructors'])
                 tut_section = [days, start_time, end_time, course_type, instructor]
@@ -109,8 +132,14 @@ def schedule():
                     start_time_datetime = datetime.datetime.strptime(start_time, '%H:%M')
                     if start_time_datetime < no_classes_before_time:
                         continue
-                
+
                 end_time = courses_list[section]['classes'][0]['date']['end_time']
+
+                if no_classes_after:
+                    end_time_datetime = datetime.datetime.strptime(end_time, '%H:%M')
+                    if end_time_datetime > no_classes_after_time:
+                        continue
+
                 course_type = courses_list[section]['section'] #either LEC, LAB, or TUT
                 instructor = str(courses_list[section]['classes'][0]['instructors'])
                 lab_section = [days, start_time, end_time, course_type, instructor]
