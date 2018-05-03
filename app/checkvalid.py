@@ -11,6 +11,6 @@ def check_valid(subject, number):
 	length = len(courses)
 
 	for course in range(0,length):
-		if (subject == courses[course]['subject'] and number == courses[course]['catalog_number']):
+		if (subject.upper() == courses[course]['subject'] and number == courses[course]['catalog_number']):
 			return True
 	return False
