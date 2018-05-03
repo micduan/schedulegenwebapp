@@ -1,73 +1,74 @@
 <style>
 .arrow-left{
-  position:absolute;
-  top:50%;
-  left:0%;
-  transform:translate(0%,-50%);
-  -ms-transform:translate(-0%,-50%)
+  	position:absolute;
+  	top:50%;
+  	left:0%;
+  	transform:translate(0%,-50%);
+  	-ms-transform:translate(-0%,-50%)
 }
 
 .arrow-right{
-  position:absolute;
-  top:50%;
-  right:0%;
-  transform:translate(0%,-50%);
-  -ms-transform:translate(0%,-50%)
+ 	position:absolute;
+ 	top:50%;
+ 	right:0%;
+ 	transform:translate(0%,-50%);
+  	-ms-transform:translate(0%,-50%)
 }
 </style>
 
 <div id="samptext"></div>
 {% if not schedule %}
-  Unfortunately there are no schedules that match your requirements.
+  	Unfortunately there are no schedules that match your requirements.
 {% else %}
-<h1 style="text-align: center"> Your Schedules </h1>  
-{% for sched in schedule %}
-	<table class="sched" border="1">
+	<h1 style="text-align: center"> Your Schedules </h1>
+	{% for sched in schedule %}
+		<table class="sched" border="1">
+			<tr>
+				<th>Time</th>
+				<th>Monday</th>
+				<th>Tuesday</th>
+				<th>Wednesday</th>
+				<th>Thursday</th>
+				<th>Friday</th>
+				<th>Saturday</th>
+				<th>Sunday</th>
+			</tr>
+
+		{% for time in sched %}
 		<tr>
-			<th>Time</th>
-			<th>Monday</th>
-			<th>Tuesday</th>
-			<th>Wednesday</th>
-			<th>Thursday</th>
-			<th>Friday</th>
-			<th>Saturday</th>
-			<th>Sunday</th>
+			<td>{{ time.time }}</td>
+			{% if time.M %}
+				<td bgcolor="#FF0000">{{ time.M[1] }} </td>
+			{% else %}
+				<td></td>
+			{% endif %}
+
+			{% if time.T %}
+				<td bgcolor="#FF0000">{{ time.T[1] }}</td>
+			{% else %}
+				<td></td>
+			{% endif %}
+
+			{% if time.W %}
+				<td bgcolor="#FF0000">{{ time.W[1] }}</td>
+			{% else %}
+				<td></td>
+			{% endif %}
+
+			{% if time.Th %}
+				<td bgcolor="#FF0000">{{ time.Th[1] }}</td>
+			{% else %}
+				<td></td>
+			{% endif %}
+
+			{% if time.F %}
+				<td bgcolor="#FF0000">{{ time.F[1] }}</td>
+			{% else %}
+				<td></td>
+			{% endif %}
 		</tr>
+		{% endfor %}
 
-	{% for time in sched %}
-	<tr>
-		<td>{{ time.time }}</td>
-		{% if time.M %}
-		<td bgcolor="#FF0000">{{ time.M[1] }} </td>
-		{% else %}
-		<td></td>
-		{% endif %}
-
-		{% if time.T %}
-		<td bgcolor="#FF0000">{{ time.T[1] }}</td>
-		{% else %}
-		<td></td>
-		{% endif %}
-
-		{% if time.W %}
-		<td bgcolor="#FF0000">{{ time.W[1] }}</td>
-		{% else %}
-		<td></td>
-		{% endif %}
-
-		{% if time.Th %}
-		<td bgcolor="#FF0000">{{ time.Th[1] }}</td>
-		{% else %}
-		<td></td>
-		{% endif %}
-
-		{% if time.F %}
-		<td bgcolor="#FF0000">{{ time.F[1] }}</td>
-		{% else %}
-		<td></td>
-		{% endif %}
-	</tr>
-	{% endfor %}
 	<button class="arrow-left" onclick="plusDivs(-1)">&#10094;</button>
 	<button class="arrow-right" onclick="plusDivs(1)">&#10095;</button>
 {% endfor %}
