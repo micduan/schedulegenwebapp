@@ -76,21 +76,21 @@
 {% endif %}	
 
 <script>
-var slideIndex = 1;
-showDivs(slideIndex);
+var schedIndex = 1;
+showDivs(schedIndex);
 
 function plusDivs(n) {
-  showDivs(slideIndex += n);
+  showDivs(schedIndex += n);
 }
 
 function showDivs(n) {
   var i;
   var x = document.getElementsByClassName("sched");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length}
+  if (n > x.length) {schedIndex = 1}    
+  if (n < 1) {schedIndex = x.length}
   for (i = 0; i < x.length; i++) {
      x[i].style.display = "none";  
   }
-  x[slideIndex-1].style.display = "block";  
+  x[schedIndex-1].style.display = "block";  
 }
 </script>
