@@ -21,8 +21,9 @@
 {% if not schedule %}
   	Unfortunately there are no schedules that match your requirements.
 {% else %}
-	<h1 style="text-align: center"> Your Schedules </h1>
+	<h1 style="text-align: center"> Your {{ schedule|count }} Possible Schedules </h1>
 	{% for sched in schedule %}
+
 		<table class="sched table" border="1">
 			<tr>
 				<th>Time</th>
@@ -70,6 +71,7 @@
 
 		<button class="arrow-left" onclick="plusDivs(-1)">&#10094;</button>
 		<button class="arrow-right" onclick="plusDivs(1)">&#10095;</button>
+		</table>
 	{% endfor %}
 {% endif %}	
 
@@ -89,6 +91,6 @@ function showDivs(n) {
   for (i = 0; i < x.length; i++) {
      x[i].style.display = "none";  
   }
-  x[schedIndex-1].style.display = "table";  
+  x[schedIndex-1].style.display = "table"; 
 }
 </script>
