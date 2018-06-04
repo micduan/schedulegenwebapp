@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request
+from flask_bootstrap import Bootstrap
+from flask_wtf import FlaskForm
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from uwaterlooapi import UWaterlooAPI
-from pprint import pprint
+from wtforms import StringField, PasswordField, BooleanField
+from wtforms.validators import InputRequired, Email, Length
 import itertools
 import Permutation
 import checkvalid
@@ -18,12 +23,30 @@ def flatten(container):
         else:
             yield i
 
+class LoginForm(FlaskForm):
+    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+    remember = BooleanField('remember me')
+
 
 app = Flask(__name__, template_folder='Templates')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+Bootstrap(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.column(db.String(128))
 
 @app.route('/')
 def index():
     return render_template("main.html")
+
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template("login.html", form=form)
 
 @app.route('/token', methods=['POST', 'GET'])
 def token():
