@@ -1,0 +1,1 @@
+SQLALCHEMY_DATABASE_URI = 'mysql://root:password@db:3306/ratemyprof'

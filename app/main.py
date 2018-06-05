@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
 from flask_migrate import Migrate
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import logout_user, current_user, login_user, login_required
 from uwaterlooapi import UWaterlooAPI
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
@@ -13,6 +14,9 @@ import Check
 import json
 import datetime
 import getCourses
+import settings
+import forms
+import models
 from Course import Course
 
 def flatten(container):
@@ -23,30 +27,50 @@ def flatten(container):
         else:
             yield i
 
-class LoginForm(FlaskForm):
-    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
-    remember = BooleanField('remember me')
-
-
 app = Flask(__name__, template_folder='Templates')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = settings.SQLALCHEMY_DATABASE_URI
+app.config['SECRET_KEY'] = 'you-will-never-guess'
 db = SQLAlchemy(app)
+login = LoginManager(app)
 migrate = Migrate(app, db)
 Bootstrap(app)
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.column(db.String(128))
 
 @app.route('/')
 def index():
     return render_template("main.html")
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    return render_template("login.html", form=form)
+    if current_user.is_authenticated:
+        return render_template("main.html")
+    form = forms.LoginForm()
+    if form.validate_on_submit():
+        user = models.User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return render_template("login.html")
+        login_user(user, remember=form.remember_me.data)
+        return render_template("main.html")
+    return render_template("login.html", title='Sign In', form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return render_template("main.html")
+    form = forms.RegistrationForm()
+    if form.validate_on_submit():
+        user = models.User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return render_template("login.html", form=form)
+    return render_template('register.html', title='Register', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return render_template("login.html")
 
 @app.route('/token', methods=['POST', 'GET'])
 def token():
