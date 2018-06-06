@@ -1,0 +1,38 @@
+{% extends "main2.html" %}
+
+{% block content %}
+
+<div class="table-responsive">
+  	<table class="table">
+   		<tr>
+			<th>ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Username</th>
+			<th></th>
+			<th></th>
+		</tr>
+		{% for user in users %}
+			<tr>
+				<td>{{ user.id }}</td>
+				<td>{{ user.first }}</td>
+				<td>{{ user.last }}</td>
+				<td>{{ user.email }}</td>
+				<td>{{ user.username }}</td>
+				<td><u><a href="/users/{{ user.id }}">Edit</a></u></td>
+				<td><u><a href="/users/{{ user.id }}/delete">Delete</a></u></td>
+			</tr>
+		{% endfor %}
+  	</table>
+
+
+		{% if prev_url %}
+	    	<a style="margin-right: 20px;" href="{{ prev_url }}">Previous page</a>
+	    {% endif %}
+	    {% if next_url %}
+	    	<a href="{{ next_url }}">Next page</a>
+	    {% endif %}
+</div>
+
+{% endblock %}

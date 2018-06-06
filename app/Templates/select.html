@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="/static/style.css" type="text/css">
+{% extends "main2.html" %}
+
+{% block content %}
 
 <style>
 .container{
@@ -18,19 +20,9 @@ token = {{ token }}
 
 </script>
 
-<form action="/schedule" method="POST">
-    <div class="login">
-        <div class="login-screen">
-            <div class="page-title">
-                <h1>ScheduleGenerator v1.0</h1>
-                <h2>Your API token is: {{ token }}</h2>
-            </div>
-
-            <div class="text-form">
-
-                <div class="instructions">
-                    Enter the courses you would like in your schedule (e.g. CS135).
-                </div>
+<div class="instructions">
+    Enter the courses you would like in your schedule (e.g. CS135).
+</div>
                 <br>
                 <br>
                 <br>
@@ -128,7 +120,7 @@ token = {{ token }}
                         No classes after: <input type="text" value = "" name="after_filter" placeholder="17:30">
                     </div>
 
-                    <input type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
+                    <input style="display: inline-block; width: 300px;" type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
 
                     <div>
                         <select id="course">
@@ -139,10 +131,7 @@ token = {{ token }}
                         </select>
                     </div>
                 </form>
-                <br>
-            </div>
-        </div>
-    </div>
-</form>
+
+{% endblock %}
 
 

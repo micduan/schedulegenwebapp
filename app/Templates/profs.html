@@ -1,0 +1,37 @@
+{% extends "main2.html" %}
+
+{% block content %}
+
+<div class="table-responsive">
+  	<table class="table">
+   		<tr>
+			<th>ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Rating</th>
+			<th>Number of Ratings</th>
+			<th></th>
+			<th></th>
+		</tr>
+		{% for prof in profs %}
+			<tr>
+				<td>{{ prof.id }}</td>
+				<td>{{ prof.first }}</td>
+				<td>{{ prof.last }}</td>
+				<td>{{ prof.rating }}</td>
+				<td>{{ prof.num_ratings }}</td>
+				<td><u><a href="/profs/{{ prof.id }}">Edit</a></u></td>
+				<td><u><a href="/profs/{{ prof.id }}/delete">Delete</a></u></td>
+			</tr>
+		{% endfor %}
+  	</table>
+
+	{% if prev_url %}
+    	<a href="{{ prev_url }}">Previous page</a>
+	{% endif %}
+    {% if next_url %}
+	    <a href="{{ next_url }}">Next page</a>
+	{% endif %}
+</div>
+
+{% endblock %}

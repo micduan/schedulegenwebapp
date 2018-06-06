@@ -1,0 +1,33 @@
+{% extends "main2.html" %}
+
+{% block content %}
+
+<div class="table-responsive">
+  	<table class="table">
+   		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th></th>
+			<th></th>
+		</tr>
+		{% for role in roles %}
+			<tr>
+				<td>{{ role.id }}</td>
+				<td>{{ role.name }}</td>
+				<td>{{ role.description }}</td>
+				<td><u><a href="/roles/{{ role.id }}">Edit</a></u></td>
+				<td><u><a href="/roles/{{ role.id }}/delete">Delete</a></u></td>
+			</tr>
+		{% endfor %}
+
+		{% if prev_url %}
+	    	<a href="{{ prev_url }}">Previous page</a>
+	    {% endif %}
+	    {% if next_url %}
+	    	<a href="{{ next_url }}">Next page</a>
+	    {% endif %}
+  	</table>
+</div>
+
+{% endblock %}

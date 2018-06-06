@@ -1,0 +1,30 @@
+{% extends "main2.html" %}
+
+{% block content %}
+
+<form action="/token" method="POST">
+            <div class="login">
+                <div class="login-screen">
+
+                    <div class="text-form">
+                        <div class="instructions">
+                            Please proceed to <u><a href="https://uwaterloo.ca/api/register">the Waterloo website</a></u> to request an API token.
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+                        <div class="input-token">
+                            <input style="display: inline-block; width: 300px;" type="text" class="login-field" value="" placeholder="token" name="password">
+                            <label class="login-field-icon fui-user" for="login-user"></label>
+                        </div>
+
+                        <input style="display: inline-block; width: 300px;"type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
+                        <br>
+                    </div>
+                </div>
+            </div>
+          </form>
+
+{% endblock %}

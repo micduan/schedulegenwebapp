@@ -1,3 +1,7 @@
+{% extends "main2.html" %}
+
+{% block content %}
+
     <h1>Sign In</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
@@ -18,3 +22,5 @@
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit() }}</p>
     </form>
+
+{% endblock %}

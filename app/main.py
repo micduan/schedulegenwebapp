@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, url_for
 from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_login import LoginManager
@@ -8,7 +8,6 @@ from uwaterlooapi import UWaterlooAPI
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 import itertools
-import Permutation
 import checkvalid
 import Check
 import json
@@ -31,13 +30,18 @@ app = Flask(__name__, template_folder='Templates')
 app.config['SQLALCHEMY_DATABASE_URI'] = settings.SQLALCHEMY_DATABASE_URI
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 db = SQLAlchemy(app)
-login = LoginManager(app)
+login = LoginManager()
+login.init_app(app)
 migrate = Migrate(app, db)
 Bootstrap(app)
 
+@login.user_loader
+def load_user(id):
+    return models.User.query.get(int(id))
+
 @app.route('/')
 def index():
-    return render_template("main.html")
+    return render_template("index.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -50,7 +54,7 @@ def login():
             flash('Invalid username or password')
             return render_template("login.html")
         login_user(user, remember=form.remember_me.data)
-        return render_template("main.html")
+        return render_template("index.html")
     return render_template("login.html", title='Sign In', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -64,13 +68,63 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
-        return render_template("login.html", form=form)
+        login_form = forms.LoginForm()
+        return render_template("index.html", form=form)
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/logout')
 def logout():
     logout_user()
-    return render_template("login.html")
+    return render_template("index.html")
+
+@app.route('/users/<user_id>')
+@login_required
+def showUsers(user_id):
+    return user_id
+    current_user_id = current_user.get_id()
+    user_is_valid = models.User.query.filter(models.User.roles.any(id=1)).filter_by(id=user_id).first()
+
+    page = request.args.get('page', 1, type=int)
+
+    users = models.User.query.order_by(models.User.id.asc()).paginate(page, 20, False)
+
+    next_url = url_for('showUsers', page=users.next_num) \
+        if users.has_next else None
+    prev_url = url_for('showUsers', page=users.prev_num) \
+        if users.has_prev else None
+    
+    return render_template('users.html', users=users.items, next_url=next_url, prev_url=prev_url)
+
+@app.route('/profs/<prof_id>')
+@login_required
+def showProfs(prof_id):
+
+    #user_id = current_user.get_id()
+    #user_is_valid = models.User.query.filter(models.User.roles.any(id=1)).filter_by(id=user_id).first()
+    page = request.args.get('page', 1, type=int)
+    profs = models.professors.query.order_by(models.professors.id.asc()).paginate(page, 20, False)
+
+    next_url = url_for('showProfs', page=profs.next_num) \
+        if profs.has_next else None
+    prev_url = url_for('showProfs', page=profs.prev_num) \
+        if profs.has_prev else None
+    
+    return render_template('profs.html', profs=profs.items, next_url=next_url, prev_url=prev_url)
+
+@app.route('/roles/<role_id>')
+@login_required
+def showRoles(role_id):
+    #user_id = current_user.get_id()
+    #user_is_valid = models.User.query.filter(models.User.roles.any(id=1)).filter_by(id=user_id).first()
+    page = request.args.get('page', 1, type=int)
+    roles = models.Roles.query.order_by(models.Roles.id.asc()).paginate(page, 20, False)
+
+    next_url = url_for('showRoles', page=roles.next_num) \
+        if roles.has_next else None
+    prev_url = url_for('showRoles', page=roles.prev_num) \
+        if roles.has_prev else None
+    
+    return render_template('roles.html', roles=roles.items, next_url=next_url, prev_url=prev_url)
 
 @app.route('/token', methods=['POST', 'GET'])
 def token():
@@ -88,7 +142,7 @@ def token():
             else:
                 return "Invalid API Token"
         else:
-            return render_template("main.html")
+            return render_template("index.html")
 
 @app.route('/schedule', methods=['POST', 'GET'])
 def schedule():
