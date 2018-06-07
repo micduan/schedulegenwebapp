@@ -24,6 +24,7 @@ class User(UserMixin, main.db.Model):
     last = main.db.Column(main.db.String(30))
     email = main.db.Column(main.db.String(120), index=True, unique=True)
     password_hash = main.db.Column(main.db.String(128))
+    token = main.db.Column(main.db.String(50))
     roles = relationship("Roles", secondary=user_roles, backref=main.db.backref('users'))
 
     def __repr__(self):

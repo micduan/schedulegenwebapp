@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.form-label {
+	width: 200px;
+}
+
+.form-input {
+	width: 400px;
+}
+</style>
+
+<h1>Edit Role - {{ role.name }} </h1>
+
+<form action="" method="post">
+
+	<p>
+		<label class="form-label" for="name">Name</label>
+		{% if role.name %}
+		<input class="form-input" name="name" value="{{ role.name }}">
+		{% else %}
+		<input class="form-input" name="name">
+		{% endif %}
+		<br/>
+
+		<label class="form-label" for="description">Description</label>
+		{% if role.description %}
+		<textarea cols="40" rows="5" class="form-input" name="description">{{ role.description }}</textarea>
+		{% else %}
+		<textarea cols="40" rows="5" class="form-input" name="description"></textarea>
+		{% endif %}
+		<br/>
+	</p>
+
+	<button class="btn btn-info" type="submit">Submit Changes</button>
+
+</form>
+
+{% endblock %}

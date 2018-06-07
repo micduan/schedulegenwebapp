@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.form-label {
+	width: 200px;
+}
+
+.form-input {
+	width: 400px;
+}
+</style>
+
+<h1>Edit Professor - {{ prof.first}} {{ prof.last}} </h1>
+
+<form action="" method="post">
+
+	<p>
+		<label class="form-label" for="first">First Name</label>
+		{% if prof.first %}
+		<input class="form-input" name="first" value="{{ prof.first }}">
+		{% else %}
+		<input class="form-input" name="first">
+		{% endif %}
+		<br/>
+
+		<label class="form-label" for="last">Last Name</label>
+		{% if prof.last %}
+		<input class="form-input" name="last" value="{{ prof.last }}">
+		{% else %}
+		<input class="form-input" name="last">
+		{% endif %}
+		<br/>
+
+		<label class="form-label" for="rating">Rating</label>
+		{% if prof.rating %}
+		<input class="form-input" name="rating" value="{{ prof.rating }}">
+		{% else %}
+		<input class="form-input" name="rating">
+		{% endif %}
+		<br/>
+
+		<label class="form-label" for="num_ratings">Number of Ratings</label>
+		{% if prof.num_ratings %}
+		<input class="form-input" name="num_ratings" value="{{ prof.num_ratings }}">
+		{% else %}
+		<input class="form-input" name="num_ratings">
+		{% endif %}
+		<br/>
+
+	</p>
+
+	<button class="btn btn-info" type="submit">Submit Changes</button>
+
+</form>
+
+{% endblock %}

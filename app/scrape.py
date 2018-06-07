@@ -5,11 +5,11 @@ import MySQLdb
 
 def getRatings():
 
-	db = MySQLdb.connect(host="127.0.0.1",
+	db = MySQLdb.connect(host="db",
 		user="root",
 		passwd="password",
 		db="ratemyprof",
-		port=3308)
+		port=3306)
 
 	cursor = db.cursor()
 

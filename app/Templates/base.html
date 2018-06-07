@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="shortcut icon" type="image/png" href="../w.png"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 3</title>
+    <title>Schedule Generator</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,11 +18,10 @@
         <!-- Sidebar Holder -->
         <nav id="sidebar">
           <div class="sidebar-header">
-              <h3>Bootstrap Sidebar</h3>
+              <h3><a href="/">Schedule Generator v1.0</a></h3>
           </div>
 
           <ul class="list-unstyled components">
-            <p>Dummy Heading</p>
             <li class="active">
               <a href="/">Home</a>
             </li>
@@ -43,10 +43,8 @@
               </li>
               <li class="active">
                 <a href="#toolsSubmenu" data-toggle="collapse" aria-expanded="false">Administrative Tools</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li><a href="#">Page 1</a></li>
-                    <li><a href="#">Page 2</a></li>
-                    <li><a href="#">Page 3</a></li>
+                <ul class="collapse list-unstyled" id="toolsSubmenu">
+                    <li><a href="/scrape">Rate My Prof Scraper</a></li>
                 </ul>
               </li>
             {% endif %}
@@ -60,7 +58,6 @@
             <div class="container-fluid">
 
               <div class="navbar-header">
-                Schedule Generator v1.0
                 <span></span>
                 <span></span>
                 <span></span>
@@ -72,12 +69,22 @@
                     <li><a href="/login">Login</a></li>
                     <li><a href="/register">Register</a></li>
                   {% else %}
+                    <li><a href="/profile">{{ current_user.first }}</a></li>
                     <li><a href="/logout">Logout</a></li>
                   {% endif %}
                 </ul>
               </div>
             </div>
           </nav>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <ul>
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
           {% block content %}{% endblock %}
           </div>
       </div>

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.form-label {
+	width: 200px;
+}
+
+.form-input {
+	width: 400px;
+}
+</style>
+
+<h1>Edit User - {{ user.first}} {{ user.last}} </h1>
+
+<form action="" method="post">
+
+	<p>
+		<label class="form-label" for="first">First Name</label>
+		{% if user.first %}
+		<input class="form-input" name="first" value="{{ user.first }}">
+		{% else %}
+		<input class="form-input" name="first">
+		{% endif %}
+		<br/>
+
+		<label class="form-label" for="last">Last Name</label>
+		{% if user.last %}
+		<input class="form-input" name="last" value="{{ user.last }}">
+		{% else %}
+		<input class="form-input" name="last">
+		{% endif %}
+		<br/>
+
+		<label class="form-label" for="email">Email</label>
+		{% if user.email %}
+		<input class="form-input" name="email" value="{{ user.email }}">
+		{% else %}
+		<input class="form-input" name="email">
+		{% endif %}
+		<br/>
+
+		<label class="form-label" for="username">Username</label>
+		{% if user.username %}
+		<input class="form-input" name="username" value="{{ user.username }}">
+		{% else %}
+		<input class="form-input" name="username">
+		{% endif %}
+		<br/>
+
+		<label class="form-label" for="token">Token</label>
+		{% if user.token %}
+		<input class="form-input" name="token" value="{{ user.token }}">
+		{% else %}
+		<input class="form-input" name="token">
+		{% endif %}
+		<br/>
+
+	</p>
+
+	<button class="btn btn-info" type="submit">Submit Changes</button>
+
+</form>
+
+{% endblock %}

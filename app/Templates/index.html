@@ -1,4 +1,4 @@
-{% extends "main2.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -16,8 +16,12 @@
                         <br>
 
                         <div class="input-token">
-                            <input style="display: inline-block; width: 300px;" type="text" class="login-field" value="" placeholder="token" name="password">
-                            <label class="login-field-icon fui-user" for="login-user"></label>
+                            {% if current_user.token %}
+                                <input style="display: inline-block; width: 300px;" type="text" class="login-field" value="{{ current_user.token }}" placeholder="token" name="token">
+                            {% else %}
+                                <input style="display: inline-block; width: 300px;" type="text" class="login-field" value="" placeholder="token" name="token">
+                            {% endif %}
+                            <label class="login-field-icon fui-user" for="token"></label>
                         </div>
 
                         <input style="display: inline-block; width: 300px;"type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >

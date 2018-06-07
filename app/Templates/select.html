@@ -1,4 +1,4 @@
-{% extends "main2.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -13,6 +13,14 @@
     flex-grow: 1;
     width: 280px;
 }
+
+.form-label {
+    width: 200px;
+}
+
+.form-input {
+    width: 400px;
+}
 </style>
 
 <script>
@@ -23,114 +31,126 @@ token = {{ token }}
 <div class="instructions">
     Enter the courses you would like in your schedule (e.g. CS135).
 </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <form method="POST" action="/schedule">
-                    <input type="hidden" name="token" value="{{ token }}">
-                    <div class="container">
-                        <div class="input-token">
-                            <input class="login-field course" value="" placeholder="Subject 1" name="course1">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
+<br>
+<br>
+<br>
+<br>
+<form method="POST" action="/schedule">
+    <input type="hidden" name="token" value="{{ token }}">
+    <div class="container">
+        <div class="input-token">
+            <input class="login-field course" value="" placeholder="Subject 1" name="course1">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
 
-                        <div class="input-token">
-                            <input class="login-field course-num" value="" placeholder="Course Number 1" name="course1num">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
-                    </div>
+        <div class="input-token">
+            <input class="login-field course-num" value="" placeholder="Course Number 1" name="course1num">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+    </div>
 
-                    <div class="container">
-                        <div class="input-token">
-                            <input class="login-field course" value="" placeholder="Subject 2" name="course2">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
+    <div class="container">
+        <div class="input-token">
+            <input class="login-field course" value="" placeholder="Subject 2" name="course2">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
 
-                        <div class="input-token">
-                            <input class="login-field course-num" value="" placeholder="Course Number 2" name="course2num">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
-                    </div>
+        <div class="input-token">
+            <input class="login-field course-num" value="" placeholder="Course Number 2" name="course2num">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+    </div>
 
-                    <div class="container">
-                        <div class="input-token">
-                            <input class="login-field course" value="" placeholder="Subject 3" name="course3">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
+    <div class="container">
+        <div class="input-token">
+            <input class="login-field course" value="" placeholder="Subject 3" name="course3">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
 
-                        <div class="input-token">
-                            <input class="login-field course-num" value="" placeholder="Course Number 3" name="course3num">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
-                    </div>
+        <div class="input-token">
+            <input class="login-field course-num" value="" placeholder="Course Number 3" name="course3num">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+    </div>
 
-                    <div class="container">
-                        <div class="input-token">
-                            <input class="login-field course" value="" placeholder="Subject 4" name="course4">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
+    <div class="container">
+        <div class="input-token">
+            <input class="login-field course" value="" placeholder="Subject 4" name="course4">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
 
-                        <div class="input-token">
-                            <input class="login-field course-num" value="" placeholder="Course Number 4" name="course4num">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
-                    </div>
+        <div class="input-token">
+            <input class="login-field course-num" value="" placeholder="Course Number 4" name="course4num">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+    </div>
 
-                    <div class="container">
-                        <div class="input-token">
-                            <input class="login-field course" value="" placeholder="Subject 5" name="course5">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
+        <div class="container">
+        <div class="input-token">
+            <input class="login-field course" value="" placeholder="Subject 5" name="course5">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
 
-                        <div class="input-token">
-                            <input class="login-field course-num" value="" placeholder="Course Number 5" name="course5num">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
-                    </div>
+        <div class="input-token">
+            <input class="login-field course-num" value="" placeholder="Course Number 5" name="course5num">
+               <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+    </div>
 
-                    <div class="container">
-                        <div class="input-token">
-                            <input class="login-field course" value="" placeholder="Subject 6" name="course6">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
+    <div class="container">
+        <div class="input-token">
+            <input class="login-field course" value="" placeholder="Subject 6" name="course6">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
 
-                        <div class="input-token">
-                            <input class="login-field course-num" value="" placeholder="Course Number 6" name="course6num">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
-                    </div>
+        <div class="input-token">
+            <input class="login-field course-num" value="" placeholder="Course Number 6" name="course6num">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+    </div>
 
-                    <div class="container">
-                        <div class="input-token">
-                            <input class="login-field course" value="" placeholder="Subject 7" name="course7">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
+    <div class="container">
+        <div class="input-token">
+            <input class="login-field course" value="" placeholder="Subject 7" name="course7">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
 
-                        <div class="input-token">
-                            <input class="login-field course-num" value="" placeholder="Course Number 7" name="course7num">
-                            <label class="login-field-icon fui-user" for="login-name"></label>
-                        </div>
-                    </div>
+        <div class="input-token">
+            <input class="login-field course-num" value="" placeholder="Course Number 7" name="course7num">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+    </div>
 
-                    <div class="input-token">
-                        No classes before: <input type="type" value="" name="before_filter" placeholder="9:30">
-                    </div>
-                    <div class="input-token">
-                        No classes after: <input type="text" value = "" name="after_filter" placeholder="17:30">
-                    </div>
+    {% if not current_user.is_anonymous %}
+    <div class="input-token">
+        <label class="form-label" for="before_filter">No classes before: </label><input type="type" value="" name="before_filter" placeholder="9:30">
+    </div>
+    <div class="input-token">
+        <label class="form-label" for="after_filter">No classes after: </label>
+        <input type="text" value = "" name="after_filter" placeholder="17:30">
+    </div>
+    {% else %}
+    <div class="input-token">
+        <label class="form-label" for="before_filter">No classes before: </label>
+        <input class="form-input" type="type" disabled="disblaed" value="" name="before_filter" placeholder="Must be registered to use.">
+    </div>
+    <div class="input-token">
+        <label class="form-label" for="after_filter">No classes after: </label>
+        <input class="form-input" type="text" disabled="disbled" value = "" name="after_filter" placeholder="Must be registered to use.">
+    </div>
+    {% endif %}
 
-                    <input style="display: inline-block; width: 300px;" type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
+    <input style="display: inline-block; width: 300px;" type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
 
-                    <div>
-                        <select id="course">
-                                {% for course in courses %}
-                                    <option value={{ course }}>{{ course }}</option>
-                                {% endfor %}
+    <div>
+        <select id="course">
+            {% for course in courses %}
+                <option value={{ course }}>{{ course }}</option>
+            {% endfor %}
 
-                        </select>
-                    </div>
-                </form>
+        </select>
+    </div>
+</form>
 
 {% endblock %}
 
