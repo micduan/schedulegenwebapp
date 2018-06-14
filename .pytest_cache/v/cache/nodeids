@@ -1,0 +1,12 @@
+[
+  "test_Routes.py::test_index", 
+  "test_Routes.py::test_users", 
+  "test_Routes.py::TestFlask::test_web_app_running", 
+  "test_checkValidCourse.py::test_validCourse", 
+  "test_checkValidCourse.py::test_invalidCourse", 
+  "test_checkValidSchedule.py::test_valid", 
+  "test_checkValidSchedule.py::test_valid2", 
+  "test_checkValidSchedule.py::test_valid3", 
+  "test_checkValidSchedule.py::test_invalid", 
+  "test_getCourses.py::test_validCourse"
+]

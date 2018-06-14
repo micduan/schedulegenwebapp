@@ -1,0 +1,6 @@
+{
+  "test_checkValidSchedule.py::test_invalid2": true, 
+  "test_login.py::MyTest": true, 
+  "test_login.py::TestCase": true, 
+  "test_renderTemplates.py::test_assert_mytemplate_used": true
+}

@@ -24,7 +24,17 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different username.')
 
-    #def validate_email(self, email):
-    #    user = models.User.query.filter_by(email=email.data).first()
-    #    if user is not None:
-    #        raise ValidationError('Please use a different email address.')
+    def validate_email(self, email):
+        user = models.User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different email address.')
+
+    def validate_first(self, first):
+        only_letters = (str(first.data)).isalpha()
+        if not only_letters:
+            raise ValidationError('First name can only have letters.')
+
+    def validate_last(self, last):
+        only_letters = (str(last.data)).isalpha()
+        if not only_letters:
+            raise ValidationError('Last name can only have letters.')

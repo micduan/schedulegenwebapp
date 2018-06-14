@@ -30,23 +30,24 @@
                 <a href="/saved">Saved Schedules</a>
               </li>
             </ul>
-
-            <ul class="list-unstyled components">
-              <p>Admin</p>
-              <li class="active">
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li><a href="/users">Users</a></li>
-                    <li><a href="/profs">Profs</a></li>
-                    <li><a href="/roles">Roles</a></li>
-                </ul>
-              </li>
-              <li class="active">
-                <a href="#toolsSubmenu" data-toggle="collapse" aria-expanded="false">Administrative Tools</a>
-                <ul class="collapse list-unstyled" id="toolsSubmenu">
-                    <li><a href="/scrape">Rate My Prof Scraper</a></li>
-                </ul>
-              </li>
+            {% if current_user.is_admin() %}
+              <ul class="list-unstyled components">
+                <p>Admin</p>
+                <li class="active">
+                  <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+                  <ul class="collapse list-unstyled" id="pageSubmenu">
+                      <li><a href="/users">Users</a></li>
+                      <li><a href="/profs">Profs</a></li>
+                      <li><a href="/roles">Roles</a></li>
+                  </ul>
+                </li>
+                <li class="active">
+                  <a href="#toolsSubmenu" data-toggle="collapse" aria-expanded="false">Administrative Tools</a>
+                  <ul class="collapse list-unstyled" id="toolsSubmenu">
+                      <li><a href="/scrape">Rate My Prof Scraper</a></li>
+                  </ul>
+                </li>
+              {% endif %}
             {% endif %}
           </ul>
         </nav>

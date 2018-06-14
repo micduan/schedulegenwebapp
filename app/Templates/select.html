@@ -129,27 +129,43 @@ token = {{ token }}
         <label class="form-label" for="after_filter">No classes after: </label>
         <input type="text" value = "" name="after_filter" placeholder="17:30">
     </div>
+    <div class="input-token">
+        <label class="form-label" for="tutorials">Ignore tutorials: </label>
+        <input type="checkbox" value ="true" name="tutorials">
+    </div>
+    <div class="input-token">
+        <label class="form-label" for="ratemyprof">Sort by RateMyProf scores: </label>
+        <input type="checkbox" value ="" name="ratemyprof">
+    </div>
     {% else %}
     <div class="input-token">
         <label class="form-label" for="before_filter">No classes before: </label>
-        <input class="form-input" type="type" disabled="disblaed" value="" name="before_filter" placeholder="Must be registered to use.">
+        <input class="form-input" type="type" disabled="disabled" value="" name="before_filter" placeholder="Must be registered to use.">
     </div>
     <div class="input-token">
         <label class="form-label" for="after_filter">No classes after: </label>
-        <input class="form-input" type="text" disabled="disbled" value = "" name="after_filter" placeholder="Must be registered to use.">
+        <input class="form-input" type="text" disabled="disabled" value = "" name="after_filter" placeholder="Must be registered to use.">
+    </div>
+    <div class="input-token">
+        <label class="form-label" for="tutorials">Ignore tutorials (Must be registered): </label>
+        <input type="checkbox" value ="" name="tutorials" disabled>
+    </div>
+    <div class="input-token">
+        <label class="form-label" for="ratemyprof">Sort by RateMyProf scores:  </label>
+        <input type="checkbox" value ="" name="ratemyprof" disabled>
     </div>
     {% endif %}
 
     <input style="display: inline-block; width: 300px;" type="submit" value="Continue" class="btn btn-primary btn-large btn-block" >
 
-    <div>
+    <!--<div>
         <select id="course">
             {% for course in courses %}
                 <option value={{ course }}>{{ course }}</option>
             {% endfor %}
 
         </select>
-    </div>
+    </div>-->
 </form>
 
 {% endblock %}

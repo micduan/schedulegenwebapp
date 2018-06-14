@@ -23,7 +23,10 @@
 {% if not schedule %}
   	Unfortunately there are no schedules that match your requirements.
 {% else %}
-	<h1 style="text-align: center"> Your {{ schedule|count }} Possible Schedules </h1>
+	<h1 style="text-align: center"> Your {{ schedule|count }} Possible Schedules </h1></br>
+	<div style="text-align: center;">
+		<div id="current_index"> Schedule 1 </div>
+	</div>
 	{% for sched in schedule %}
 
 		<table class="sched table" border="1">
@@ -40,31 +43,41 @@
 		<tr>
 			<td>{{ time.time }}</td>
 			{% if time.M %}
-				<td bgcolor="#FF0000">{{ time.M[1] }} </td>
+				<td bgcolor="#B7D192">{{ time.M[2] }} </br> {{ time.M[3] }} </br>
+					{{ time.M[1] }}
+				</td>
 			{% else %}
 				<td></td>
 			{% endif %}
 
 			{% if time.T %}
-				<td bgcolor="#FF0000">{{ time.T[1] }}</td>
+				<td bgcolor="#B7D192">{{ time.T[2] }} </br> {{ time.T[3] }} </br>
+					{{ time.T[1] }}
+				</td>
 			{% else %}
 				<td></td>
 			{% endif %}
 
 			{% if time.W %}
-				<td bgcolor="#FF0000">{{ time.W[1] }}</td>
+				<td bgcolor="#B7D192">{{ time.W[2] }} </br> {{ time.W[3] }} </br>
+					{{ time.W[1] }}
+				</td>
 			{% else %}
 				<td></td>
 			{% endif %}
 
 			{% if time.Th %}
-				<td bgcolor="#FF0000">{{ time.Th[1] }}</td>
+				<td bgcolor="#B7D192">{{ time.Th[2] }} </br> {{ time.Th[3] }} </br>
+					{{ time.Th[1] }}
+				</td>
 			{% else %}
 				<td></td>
 			{% endif %}
 
 			{% if time.F %}
-				<td bgcolor="#FF0000">{{ time.F[1] }}</td>
+				<td bgcolor="#B7D192">{{ time.F[2] }} </br> {{ time.F[3] }} </br>
+					{{ time.F[1] }}
+				</td>
 			{% else %}
 				<td></td>
 			{% endif %}
@@ -93,7 +106,9 @@ function showDivs(n) {
   for (i = 0; i < x.length; i++) {
      x[i].style.display = "none";  
   }
+  document.getElementById('current_index').innerHTML = "Schedule " + schedIndex
   x[schedIndex-1].style.display = "table"; 
+
 }
 </script>
 

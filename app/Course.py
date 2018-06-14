@@ -67,33 +67,32 @@ class Course:
 		length = len(lst)
 		index = 0
 		while index < length and index != length:
-
 			#sometimes the value returned from the API looks like [u'MWF', u'8:30', u'9:20', u'LEC081']
-
 			if lst[index] is None:
 				continue
 
 			start_time = lst[index + 1].replace(":", "")
 			end_time = lst[index + 2].replace(":", "")
 			instructor = lst[index + 4]
-
+			course = lst[index + 5]
+			section = lst[index + 6]
 
 			if 'M' in lst[index]:
-				self.add_to_schedule('M', start_time, end_time, instructor)
+				self.add_to_schedule('M', start_time, end_time, instructor, course, section)
 			if 'W' in lst[index]:
-				self.add_to_schedule('W', start_time, end_time, instructor)	
+				self.add_to_schedule('W', start_time, end_time, instructor, course, section)	
 			if 'F' in lst[index]:
-				self.add_to_schedule('F', start_time, end_time, instructor)
+				self.add_to_schedule('F', start_time, end_time, instructor, course, section)
 			if 'Th' in lst[index]:
-				self.add_to_schedule('Th', start_time, end_time, instructor)
+				self.add_to_schedule('Th', start_time, end_time, instructor, course, section)
 			if 'TT' in lst[index]:
-				self.add_to_schedule('T', start_time, end_time, instructor)
+				self.add_to_schedule('T', start_time, end_time, instructor, course, section)
 			if 'T' in lst[index] and 'Th' not in lst[index]:
-				self.add_to_schedule('T', start_time, end_time, instructor)
+				self.add_to_schedule('T', start_time, end_time, instructor, course, section)
 
-			index += 5
+			index += 7
 
-	def add_to_schedule(self, date, start_time, end_time, instructor):
+	def add_to_schedule(self, date, start_time, end_time, instructor, course, section):
 		"""
 		date: string abbreviation of day of week (Monday through Friday)
 		start_time: time class starts, in unicode (e.g. 8:30)
@@ -108,7 +107,7 @@ class Course:
 		if time_blocks is None:
 			return
 
-		response = [True, instructor]
+		response = [True, instructor, course, section]
 
 		for time in time_blocks:
 			if time == 830:
@@ -174,16 +173,17 @@ class Course:
 		end_time (int) : represents time course ends
 		returns a list of all course blocks used (e.g. from 8:30 - 9:20, 8:30 - 9:00 are used, and 9:00 - 9:30 are used)
 		"""
-		current_number = start_time
+		current_time = start_time
 		times = []
-		while current_number < end_time + 1:
-			minute = current_number % 100
+		while current_time < end_time + 1:
+			minute = current_time % 100
 			if (minute % 30 == 0) and (minute < 60):
-				times.append(current_number)
+				times.append(current_time)
+			# If the time is about to hit the next hour (i.e. 9:59, add 41 so the time appear as 10:00)
 			if minute == 59:
-				current_number += 41
+				current_time += 41
 			else:
-				current_number += 1
+				current_time += 1
 
 		return times
 

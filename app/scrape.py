@@ -5,13 +5,13 @@ import MySQLdb
 
 def getRatings():
 
-	db = MySQLdb.connect(host="db",
-		user="root",
-		passwd="password",
-		db="ratemyprof",
-		port=3306)
+	#db = MySQLdb.connect(host="db",
+	#	user="root",
+	#	passwd="password",
+	#	db="ratemyprof",
+	#	port=3306)
 
-	cursor = db.cursor()
+	#cursor = db.cursor()
 
 	options = webdriver.ChromeOptions()
 	options.binary_location= "/Applications/Google Chrome 2.app/Contents/MacOS/Google Chrome";
@@ -24,12 +24,9 @@ def getRatings():
 	num_ratings = driver.find_element_by_xpath('//span[@class = "professor-count"]').text
 	num_pages = int(math.ceil(int(num_ratings)/20)) - 1
 
-	#button = driver.find_element_by_class_name("progressbtnwrap").click();
 	for i in range(num_pages):
-		#driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 		button = driver.find_element_by_xpath('//div[@class = "content"]')
 		driver.execute_script("arguments[0].click();", button)
-		#button.click()
 
 
 	prof_urls = []
@@ -46,13 +43,13 @@ def getRatings():
 		lastname = driver.find_element_by_xpath('//span[@class = "plname"]').text
 		rating = float(driver.find_element_by_xpath('//div[@class = "grade"]').text)
 		prof_num_ratings = int(driver.find_element_by_xpath('//div[@data-table = "rating-filter"]').text.split(" ")[0])
-		#print firstname + " " + lastname + " " + rating + " " + prof_num_ratings
-		sql = """INSERT INTO professors(first, last, rating, num_ratings)
-					VALUES(%s, %s, %s, %s)"""
-		cursor.execute("""INSERT INTO professors(first, last, rating, num_ratings) VALUES(%s, %s, %s, %s)""", (firstname, lastname, rating, prof_num_ratings))
-		db.commit()
+		print firstname + " " + lastname + " " + str(rating) + " " + str(prof_num_ratings)
+		#sql = """INSERT INTO professors(first, last, rating, num_ratings)
+		#			VALUES(%s, %s, %s, %s)"""
+		#cursor.execute("""INSERT INTO professors(first, last, rating, num_ratings) VALUES(%s, %s, %s, %s)""", (firstname, lastname, rating, prof_num_ratings))
+		#db.commit()
 
-	db.close()
+	#db.close()
 	print num_pages
 
 if __name__ == '__main__':

@@ -1,12 +1,9 @@
-from uwaterlooapi import UWaterlooAPI
-
-def courses(api):
+def generateCourses(uw_api):
 	"""
 	api: instance of uwaterloo API
 	returns a list of all courses the school is offering
 	"""
-	uwaterloocourses = api.courses()
-
+	uwaterloocourses = uw_api.courses()
 	courses = []
 
 	for index in range(0, len(uwaterloocourses)):
